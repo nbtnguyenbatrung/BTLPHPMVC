@@ -1,0 +1,281 @@
+{% extends 'baseql.html' %}
+
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  align=center>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" align=center>
+          <h3> Thêm người dùng </h3>
+
+          <form class="form-horizontal" method="post" action="/?admin/user/add" id="addUser">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Họ và tên * </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" style="width: 70% ;" placeholder="Họ và tên " name="name"
+                  required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Số điện thoại * </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" style="width: 70% ;" placeholder="Số điện thoại  "
+                  name="phone_number" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Email đăng nhập * </label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" style="width: 70% ;" placeholder="Email " name="email"
+                   required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Password *</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" style="width: 70% ;" placeholder="Password  "
+                  name="password" id="password" required />
+                <i style=" position: absolute;
+                          top: 5px;
+                          right: 115px;" class="bi bi-eye-slash" id="togglePassword"></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Trạng thái * </label>
+              <div class="col-sm-8">
+                <select name="status" id="statusadd" class="form-control" style="width: 70% ;" required>
+                  <option> xét trạng thái </option>
+                  <option value="1"> Active </option>
+                  <option value="0"> No Active </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Quyền * </label>
+              <div class="col-sm-8">
+                <select name="role" id="quyenadd" class="form-control" style="width: 70% ;" required>
+                  <option> xét quyền </option>
+                  <option value="user"> user </option>
+                  <option value="admin"> admin </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block table %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Bảng Khách Hàng
+  </div>
+  <div>
+    <table class="table" ui-jq="footable" ui-options='{
+      "paging": {
+        "enabled": true
+      },
+      "filtering": {
+        "enabled": true
+      },
+      "sorting": {
+        "enabled": true
+      }}'>
+      <thead>
+        <tr>
+          <th style="text-align:center"> Họ Tên Khách </th>
+          <th style="text-align:center">Số Điện Thoại</th>
+          <th style="text-align:center"> Email </th>
+          <th style="text-align:center">STATUS </th>
+          <th style="text-align:center">QUYEN </th>
+          <th style="text-align:center">NGAYTAO </th>
+          <th style="text-align:center">Tác Vụ </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr data-expanded="true" align="center">
+
+          <td>{{ user.name }}</td>
+          <td>{{ user.phone_number }}</td>
+          <td>{{ user.email }}</td>
+          <td>{% if (user.status == 1) %} Active {% else %} Inactive {% endif %}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.create_date|date("d/m/Y") }}</td>
+          <td>
+
+            {% if (user.status == 1) %}
+            <a data-id="{{ user.user_id }}" data-name="{{ user.email }}" data-status="{{user.status}}"
+              onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name'),this.getAttribute('data-status'))">
+              <button title=" Unactive ">
+                <i class="fa fa-times" style="color : red "></i>
+              </button>
+            </a>
+            {% endif %}
+
+            {% if (user.status == 0) %}
+            <a data-id="{{ user.user_id }}" data-name="{{ user.email }}" data-status="{{user.status}}"
+              onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name') ,this.getAttribute('data-status'))">
+              <button title=" Active ">
+                <i class='fa fa-check' style="color : green "></i>
+              </button>
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- phân trang   -->
+
+
+    <ul class="pagination" role="menubar" aria-label="Pagination">
+      {% if ( currentPage > 1 ) %}
+      <li><a href="?admin/user/index&page=1"><span>First</span></a></li>
+      <li><a href="?admin/user/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+      {% else %}
+      <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+      <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+      {% endif %}
+
+      {% for i in 1..totalPage %}
+      <li {% if ( currentPage==i ) %} class="current" {% endif %}><a href="?admin/user/index&page={{i}}">{{i}}</a></li>
+      {% endfor %}
+
+      {% if ( currentPage < totalPage ) %} <li><a href="?admin/user/index&page={{currentPage+1}}"><span>Next</span></a>
+        </li>
+        <li><a href="?admin/user/index&page={{totalPage}}"><span>Last</span></a></li>
+        {% else %}
+        <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+        <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+        {% endif %}
+
+    </ul>
+
+    <!-- Modal khóa tài khoản  -->
+    <div class="modal fade" id="ConfimationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông Báo </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có muốn khóa tài khoản có email là : " <span id="namend"></span> " hay không ?
+          </div>
+          <div class="modal-footer">
+            <a id="yesOption" onclick="showinfomation()" type="button" class="btn btn-danger">Yes</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal kích hoạt tài khoản  -->
+    <div class="modal fade" id="ConfimationIdkh" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông Báo </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có muốn mở tài khoản có email là : " <span id="namendkh"></span> " hay không ?
+          </div>
+          <div class="modal-footer">
+            <a id="yesOption1" onclick="showinfomation1()" type="button" class="btn btn-danger">Yes</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+  const togglePassword = document.querySelector("#togglePassword");
+  const password = document.querySelector("#password");
+
+  togglePassword.addEventListener("click", function () {
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+
+    // toggle the icon
+    this.classList.toggle("bi-eye");
+  });
+
+  function Showconfim(id, name, status) {
+    if (status == 1) {
+      $('#namend').text(name);
+      $('#yesOption').attr('href', '/?admin/user/disable&id=' + id + '&status=' + 0);
+      $('#ConfimationId').modal('show');
+    } else {
+      $('#namendkh').text(name);
+      $('#yesOption1').attr('href', '/?admin/user/disable&id=' + id + '&status=' + 1);
+      $('#ConfimationIdkh').modal('show');
+    }
+  }
+
+  function showinfomation() {
+    alert(" khóa tài khoản thành công ");
+  }
+
+  function showinfomation1() {
+    alert(" mở khóa tài khoản thành công ");
+  }
+
+  $(document).ready(function () {
+
+    $('#addUser').validate({
+      rules: {
+        email: {
+          required: true,
+          email: true,
+          remote: '/?admin/user/email-exist'
+        },
+      },
+      messages: {
+        email: {
+          remote: '<span style="color: red;"> Email đã được sử dụng  <span>'
+        }
+      }
+    });
+
+  });
+</script>
+
+{% endblock %}

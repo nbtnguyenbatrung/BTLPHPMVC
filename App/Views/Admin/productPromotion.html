@@ -1,0 +1,118 @@
+{% extends 'baseql.html' %}
+
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  align=center>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" align=center>
+          <h3> Thêm khuyến mại cho sản phẩm </h3>
+
+          <form class="form-horizontal" method="post" action="/?admin/product-promotion/add">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Tên sản phẩm * </label>
+              <div class="col-sm-8">
+                <select name="pro_id" id="pro_id" required class="form-control" style="width: 70% ;">
+                  <option value=""> chọn sản phẩm </option>
+                  {% for product in products %}
+                  <option value="{{ product.pro_id }}">{{ product.name }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4">Tên khuyến mãi *</label>
+              <div class="col-sm-8">
+                <select name="prom_id" id="prom_id" required class="form-control" style="width: 70% ;">
+                  <option value=""> chọn khuyến mại </option>
+                  {% for promotion in promotions %}
+                  <option value="{{ promotion.prom_id }}">{{ promotion.name }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block table %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Bảng Sản Phẩm khuyến mại
+  </div>
+  <div>
+    <table style="font-size: 13px;" class="table" ui-jq="footable" ui-options='{
+      "paging": {
+        "enabled": true
+      },
+      "filtering": {
+        "enabled": true
+      },
+      "sorting": {
+        "enabled": true
+      }}'>
+      <thead>
+        <tr>
+          <th style="text-align:center ; width: 30%;"> Tên Sản Phẩm</th>
+          <th style="text-align:center"> Giá Sản Phẩm </th>
+          <th style="text-align:center"> Giá Khuyến Mại </th>
+          <th style="text-align:center"> Ngày Bắt Đầu </th>
+          <th style="text-align:center"> Ngày Kết Thúc </th>
+          <th style="text-align:center"> Ngày Còn Lại</th>
+          <th style="text-align:center">Tác Vụ </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for productPromotion in productPromotions %}
+        <tr data-expanded="true" align="center">
+          <input type="hidden" name="prom_id" value="{{ productPromotion.prom_id }}" id="prom_idtd">
+          <input type="hidden" name="pro_id" value="{{ productPromotion.pro_id }}" id="pro_idtd">
+          <td>{{ productPromotion.name }}</td>
+          <td>{{ productPromotion.price|number_format(0, '.', ',') }} </td>
+          <td>{{ ((productPromotion.price*productPromotion.percent)/100)|number_format(0, '.', ',') }} </td>
+          <td>{{ productPromotion.from_date|date("d-m-Y") }}</td>
+          <td>{{ productPromotion.to_date|date("d-m-Y") }}</td>
+          <td>{{productPromotion.diffdate}}</td>
+          <td>
+            <a class="editproduct">
+              <button title=" Sửa " data-toggle="modal" data-target=".bs-example-modal-lg1">
+                <i class="fa fa-wrench" style="color : black; "></i>
+              </button>
+            </a>
+            <a data-id="{{ product.pro_id }}" data-name="{{ product.name }}"
+              onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name'))">
+              <button title=" xóa ">
+                <i class="fa fa-times" style="color : black "></i>
+              </button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+
+{% endblock %}

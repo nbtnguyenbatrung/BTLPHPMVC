@@ -1,0 +1,133 @@
+.me-container{
+    display: flex;
+    margin: 50px;
+}
+
+.me-container .me-left {
+    margin-top: 50px;
+}
+
+.me-container .me-left .nav a{
+    color: black;
+    margin-left: 10px;
+}
+
+.me-container .me-left .nav a:hover{
+    color: red;
+    margin-left: 10px;
+}
+
+.me-container .me-left .nav a.active{
+    color: red;
+}
+
+.me-container .tab-content{
+    margin-left: 50px;
+    background-color: white;
+    width: 970px;
+    padding: 0 20px;
+}
+
+.me-container .tab-content .me-password {
+    height: 400px;
+}
+
+.me-container .tab-content .me-password .title{
+    color: black;
+    padding: 20px 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.me-container .tab-content .me-password .title-content{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    align-items: center;
+}
+
+.me-container .tab-content .me-password .mk{
+    width: 50rem;
+    display: flex;
+}
+
+.me-container .tab-content .me-password .mk-nho{
+    width: 100%;
+    margin-bottom: .9375rem;
+    border-radius: .125rem;
+}
+
+.me-container .tab-content .me-password .mk-nho .mk1{
+    display: flex;
+    align-items: center;
+}
+
+.me-container .tab-content .me-password .mk-nho .mk1 input{
+    height: 40px;
+    width: 360px;
+    padding: 20px;
+}
+
+.me-container .tab-content .me-password .mk-nho .mk1 label{
+    width: 160px;
+}
+
+.tk{
+    margin: 10px 0;
+    padding: 10px 0;
+    background-color: lightgray;
+}
+
+.tk input{
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: lightgray;
+    padding: 0 20px;
+}
+
+.nd{
+    margin: 10px 0
+}
+
+.nd .nd1{
+    display: flex;
+    align-items: center;
+}
+
+.nd .nd1 .nd-left{
+    display: flex;
+    width: 700px;
+}
+
+.nd .nd1 .nd-left img{
+    width: 80px;
+    height: 80px;
+}
+
+.nd .nd1 .nd-left .nd-text{
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.nd .nd2{
+    padding: 24px 24px 12px;
+    background: #fffefb;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.nd .nd3{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 24px 24px 12px;
+}
+
+.nd .nd3 button{
+    border: none;
+    background-color: red;
+    color: white;
+    margin-left: 30px;
+    padding: 10px 20px;
+}
+

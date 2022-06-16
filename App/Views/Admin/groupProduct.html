@@ -1,0 +1,218 @@
+{% extends 'baseql.html' %}
+
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    align=center id="addModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" align=center>
+                    <h3> Thêm mới nhóm Sản Phẩm </h3>
+
+                    <form class="form-horizontal" method="post" action="/?admin/group-product/add" id="addProductGroup">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name"> Tên nhóm sản phẩm * </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" style="width: 70% ;"
+                                    placeholder="Tên nhóm sản phẩm" name="name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block table %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Quản lý nhóm sản phẩm
+    </div>
+    <div>
+        <table class="table" ui-jq="footable" ui-options='{
+            "paging": {
+              "enabled": true
+            },
+            "filtering": {
+              "enabled": true
+            },
+            "sorting": {
+              "enabled": true
+            }}'>
+            <thead>
+                <tr>
+                    <th style="text-align:center">Mã nhóm sản phẩm</th>
+                    <th style="text-align:center">Tên nhóm sản phẩm</th>
+                    <th style="text-align:center">Tác Vụ </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for groupProduct in groupProducts %}
+                <tr data-expanded="true" align="center">
+
+                    <td>{{ groupProduct.pg_id }}</td>
+                    <td>{{ groupProduct.name }}</td>
+                    <td>
+                        <a class="editgroupproduct">
+                            <button title=" Sửa " data-toggle="modal" data-target=".bs-example-modal-lg1">
+                                <i class="fa fa-wrench" style="color : black; "></i>
+                            </button>
+                        </a>
+                        <a data-id="{{ groupProduct.pg_id }}" data-name="{{ groupProduct.name }}"
+                            onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name'))">
+                            <button title=" xóa ">
+                                <i class="fa fa-times" style="color : black "></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <!-- phân trang   -->
+
+
+        <ul class="pagination" role="menubar" aria-label="Pagination">
+            {% if ( currentPage > 1 ) %}
+            <li><a href="?admin/group-product/index&page=1"><span>First</span></a></li>
+            <li><a href="?admin/group-product/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+            {% else %}
+            <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+            <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+            {% endif %}
+
+            {% for i in 1..totalPage %}
+            <li {% if ( currentPage==i ) %} class="current" {% endif %}><a
+                    href="?admin/group-product/index&page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if ( currentPage < totalPage ) %} <li><a
+                    href="?admin/group-product/index&page={{currentPage+1}}"><span>Next</span></a></li>
+                <li><a href="?admin/group-product/index&page={{totalPage}}"><span>Last</span></a></li>
+                {% else %}
+                <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+                <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+                {% endif %}
+
+        </ul>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ConfimationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Báo </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có muốn xóa nhóm sản phẩm " <span id="groupProductName"></span> "?
+                    </div>
+                    <div class="modal-footer">
+                        <a id="yesOption" onclick="showinfomation()" type="button" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- phần modol của edit  -->
+
+        <div class="modal fade bs-example-modal-lg1 myform" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" align=c enter>
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row" align=center>
+                            <h3> Sửa nhóm sản phẩm </h3>
+
+                            <form class="form-horizontal" method="post" action="/?admin/group-product/update">
+                                <div class="form-group">
+                                    <input hidden="true" id="idEdit" name="id">
+                                    <label class="control-label col-sm-4" for="name"> Tên nhóm sản phẩm * </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" style="width: 70% ;"
+                                            placeholder="Tên nhóm sản phẩm" name="name" id="nameEdit" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Save Edit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    function Showconfim(id, name) {
+
+        $('#groupProductName').text(name);
+        $('#yesOption').attr('href', '/?admin/group-product/' + id + '/delete');
+        $('#ConfimationId').modal('show');
+    }
+
+    function showinfomation() {
+        alert(" xóa dữ liệu thành công  ");
+    }
+
+
+    $(document).ready(function () {
+        $('.editgroupproduct').on('click', function () {
+            //$('.myform').modal('show')
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            $('#idEdit').val(data[0]);
+            $('#nameEdit').val(data[1]);
+        });
+
+        $('#addProductGroup').validate({
+            rules: {
+                name: {
+                    required: true,
+                    remote: '/?admin/group-product/name-exist'
+                }
+            },
+            messages: {
+                name: {
+                    remote: '<span style="color: red;">tên đã được sử dụng <span>'
+                }
+            }
+        });
+    });
+
+</script>
+
+{% endblock %}

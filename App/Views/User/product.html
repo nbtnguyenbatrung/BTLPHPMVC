@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/themify-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/style.css}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<style>
+    .qt, .qt-plus, .qt-minus {
+	display: block;
+	float: left;
+    }
+
+    .qt {
+        font-size: 19px;
+        line-height: 50px;
+        width: 70px;
+        text-align: center;
+    }
+
+    .qt-plus, .qt-minus {
+        background: #fcfcfc;
+        border: none;
+        font-size: 30px;
+        font-weight: 300;
+        height: 100%;
+        padding: 0 20px;
+        -webkit-transition: background .2s linear;
+        -moz-transition: background .2s linear;
+        -ms-transition: background .2s linear;
+        -o-transition: background .2s linear;
+        transition: background .2s linear;
+    }
+
+    .qt-plus:hover, .qt-minus:hover {
+        background: #53b5aa;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .qt-plus {
+        line-height: 50px;
+    }
+
+    .qt-minus {
+        line-height: 47px;
+    }
+
+</style>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        hello.colorlib@gmail.com
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +65 11.188.888
+                    </div>
+                </div>
+                <div class="ht-right">
+                    <div class="dropdown" style="float:left;padding : 0;" th:if="${username}">
+                        <button class="dropbtn">Welcome,<p th:utext="${username}">
+                        </p></button>
+                        <div class="dropdown-content" style="left:0;">
+                            <a th:href="@{|http://localhost:9999/purchase?id=${id}}|"><i class=" fa fa-suitcase"></i>Tài Khoản của tôi</a>
+                            <a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a>
+                            <input type="hidden" id="totalpage" th:value="${slbl}">
+                        </div>
+                    </div>
+                    <a th:unless="${username}" th:href="@{/login}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a ><i class="ti-facebook"></i></a>
+                        <a ><i class="ti-twitter-alt"></i></a>
+                        <a ><i class="ti-linkedin"></i></a>
+                        <a ><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a th:href="@{/}">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">All Product</button>
+                            <div  class="input-group">
+                                <input type="text" placeholder="What do you need?" id="search">
+                                <button type="button"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:if="${username} and ${sl} gt 0" >
+                        <ul class="nav-right">
+                            <li class="cart-icon">
+                                <a th:href="@{/shopping-cart}">
+                                    <i class="icon_bag_alt"></i>
+                                    <span th:text="${sl}"></span>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <table th:each="giohang:${giohang}">
+                                            <tbody>
+                                            <tr>
+                                                <td class="si-pic">
+                                                    <img th:src="@{'img/products/'+${giohang.Image}}" alt="" />
+                                                </td>
+                                                <td class="si-text">
+                                                    <div class="product-selected">
+                                                        <h6 th:text="${giohang.TenSP}"></h6>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="select-button">
+                                        <a th:href="@{/shopping-cart}" class="primary-btn view-card">Xem Giỏ Hàng</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:unless="${username}" >
+                        <ul class="nav-right" style="    text-align: center;">
+                            <li class="cart-icon">
+                                <a th:href="@{login}">
+                                    <i class="icon_bag_alt"></i>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <span>Chưa có sản phẩm </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:if="${sl == 0}" >
+                        <ul class="nav-right" style=" text-align: center;">
+                            <li class="cart-icon">
+                                <a th:href="@{/shopping-cart}">
+                                    <i class="icon_bag_alt"></i>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <span>Chưa có sản phẩm </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All brands</span>
+                        <ul class="depart-hover">
+                            <li th:each="thuongHieus:${thuongHieus}"><a href="#" th:text="${thuongHieus.tenHang}"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/shop}">Shop</a></li>
+                        <li><a href="#">Collection</a>
+                            <ul class="dropdown">
+                                <li th:each="loaisp:${loaisp}"><a href="#" th:text="${loaisp.tenLoaiSP}+'`s'"></a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/contact}">Contact</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a th:if="${username}" th:href="@{/shopping-cart}">Shopping Cart</a></li>
+                                <li><a th:unless="${username}" th:href="@{/login}">Shopping Cart</a></li>
+                                <li><a th:unless="${username}" th:href="@{/register}">Register</a></li>
+                                <li><a th:unless="${username}" th:href="@{/login}">Login</a></li>
+                                <li><a th:if="${username}" th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
+                        <a th:href="@{/shop}">Shop</a>
+                        <span>Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container" style="margin-right: -6rem;">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="product-pic-zoom">
+                                <img class="product-big-img" th:src="@{'img/products/'+${homeSanPham.manHinh}}" alt="">
+                                <div class="zoom-icon">
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="product-thumbs">
+                                <div class="product-thumbs-track ps-slider owl-carousel">
+                                    <div class="pt active" th:data-imgbigurl="@{'img/products/'+${homeSanPham.manHinh}}"><img
+                                            th:src="@{'img/products/'+${homeSanPham.manHinh}}" alt=""></div>
+                                    <div class="pt" th:data-imgbigurl="@{'img/products/'+${hinhAnhs.ha}}" th:each="hinhAnhs:${hinhAnhs}"><img
+                                            th:src="@{'img/products/'+${hinhAnhs.ha}}" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <span></span>
+                                    <h3 th:text="${homeSanPham.tenSP}"></h3>
+                                </div>
+                                <div th:if="${homeSanPham.soSao == 0}"><span> chưa có đánh giá </span></div>
+                                <div class="pd-rating" th:if="${homeSanPham.soSao > 0}">
+                                    <i class="fa fa-star" th:each="i : ${#numbers.sequence( 1, 5 ,1)}" th:if="${i} <= ${homeSanPham.soSao} "></i>
+                                    <i class="far fa-star" th:each="i : ${#numbers.sequence( 1, 5 ,1)}" th:if="${i} > ${homeSanPham.soSao} "></i>
+                                    <span th:text=" '(' + ${homeSanPham.soSao} + ')'"></span>
+                                </div>
+                                <div class="pd-desc">
+                                    <h4 th:text="${#numbers.formatDecimal(homeSanPham.donGia, 0, 'COMMA', 0, 'POINT')}+'VND'">
+                                        <span th:text="${#numbers.formatDecimal(homeSanPham.giasau, 0, 'COMMA', 0, 'POINT')}+'VND'"></span></h4>
+                                </div>
+                                <div class="pd-size-choose" >
+                                    <div class="sc-item" th:each="sizes:${sizes}">
+                                        <input style="width: 47px;height: 40px;" type="radio" th:id="${sizes.maSize}" th:value="${sizes.maSize}" name="size">
+                                        <label th:if="${sizes.soluong == 0}" style="border-color: rgba(0,0,0,.09);color: rgba(0,0,0,.26);cursor: not-allowed;"
+                                               th:for="${sizes.maSize}" th:text="${sizes.tenSize}"></label>
+                                        <label th:if="${sizes.soluong > 0}"
+                                               th:for="${sizes.maSize}" th:text="${sizes.tenSize}"></label>
+                                    </div>
+                                </div>
+                                <div class="quantity">
+                                    <span style="margin-right: 2rem;margin-top: 1rem;"> Số Lượng </span>
+                                    <div >
+                                        <span class="qt-minus">-</span>
+                                        <span class="qt">1</span>
+                                        <span class="qt-plus">+</span>
+                                    </div>
+                                    <span style="margin-left: 1rem;margin-top: 1rem;" th:text="${homeSanPham.soluong}+' sản phẩm có sẵn'"> </span>
+                                </div>
+                                <div style="display: flex;margin-bottom: 2rem;">
+                                    <input type="hidden" th:value="${id}" id="id">
+                                    <input type="hidden" th:value="${homeSanPham.maSP}" id="masp">
+                                    <button th:if="${username}" style="margin-right: 2rem;border: 0;" id="addsc" class="primary-btn pd-cart">
+                                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+                                    </button>
+                                    <a th:unless="${username}" th:href="@{/login}" style="margin-right: 2rem;" class="primary-btn pd-cart">
+                                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+                                    </a>
+                                    <button th:if="${username}" style="border: 0;"  class="primary-btn pd-cart buy-now" >Mua ngay</button>
+                                    <a th:unless="${username}" th:href="@{/login}"  class="primary-btn pd-cart">Mua ngay</a>
+                                </div>
+                                <ul class="pd-tags">
+                                    <li><span style="margin-right: 3rem ">CATEGORIES</span> <label th:text="${homeSanPham.tenloai}"></label> </li>
+                                </ul>
+                                <div class="pd-share">
+                                    <div class="pd-social">
+                                        <a ><i class="ti-facebook"></i></a>
+                                        <a ><i class="ti-twitter-alt"></i></a>
+                                        <a ><i class="ti-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tab">
+                        <div class="tab-item">
+                            <ul class="nav" role="tablist">
+                                <li >
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">Mô tả sản phẩm </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">Chi tiết sản phẩm</a>
+                                </li>
+                                <li >
+                                    <a data-toggle="tab" href="#tab-3" role="tab">Đánh giá </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <h5>Thông tin mô tả sản phẩm </h5>
+                                                <p th:text="${homeSanPham.moTa}"> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="specification-table">
+                                        <table>
+                                            <tr>
+                                                <td class="p-catagory">Người dùng đánh giá </td>
+                                                <td>
+                                                    <div th:if="${homeSanPham.soSao == 0}"><span> chưa có đánh giá </span></div>
+                                                    <div class="pd-rating" th:if="${homeSanPham.soSao > 0}">
+                                                        <i class="fa fa-star" th:each="i : ${#numbers.sequence( 1, 5 ,1)}" th:if="${i} <= ${homeSanPham.soSao} "></i>
+                                                        <i class="far fa-star" th:each="i : ${#numbers.sequence( 1, 5 ,1)}" th:if="${i} > ${homeSanPham.soSao} "></i>
+                                                        <span th:text=" '(' + ${homeSanPham.soSao} + ')'"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Giá gốc</td>
+                                                <td>
+                                                    <div class="p-price" th:text="${#numbers.formatDecimal(homeSanPham.donGia, 0, 'COMMA', 0, 'POINT')}+'VND'"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="customer-review-option">
+                                        <h4 th:text="${slbl} + ' Comments'"></h4>
+                                        <div class="comment-option" id="load_data">
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Related Products Section End -->
+    <div class="related-products spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2> Sản phẩm cùng loại tương tự </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-lg-3 col-sm-6" th:each="homeSanPhams1:${homeSanPhams1}">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img th:src="@{'img/products/'+${homeSanPhams1.manHinh}}" alt="">
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                            <ul>
+                                <li class="quick-view"><a th:href="@{/product(masp=${homeSanPhams1.maSP})}">+ Quick View</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name" th:text="'giày '+${homeSanPhams1.tenloai}"></div>
+                            <a>
+                                <h5 th:utext="${homeSanPhams1.tenSP}"></h5>
+                            </a>
+                            <div class="product-price" th:if="${homeSanPhams1.giasau} > 0 " >
+                                <label th:text="${#numbers.formatDecimal(homeSanPhams1.giasau, 0, 'COMMA', 0, 'POINT')}+'VND'"></label>
+                                <span th:text="${#numbers.formatDecimal(homeSanPhams1.donGia, 0, 'COMMA', 0, 'POINT')}+'VND'"></span>
+                            </div>
+                            <div class="product-price" th:if="${homeSanPhams1.giasau} == 0 " th:text="${#numbers.formatDecimal(homeSanPhams1.donGia, 0, 'COMMA', 0, 'POINT')}+'VND'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Related Products Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Serivius</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shopping Cart</a></li>
+                            <li><a href="#">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>Join Our Newsletter Now</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="img/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{js/jquery.countdown.min.js}"></script>
+    <script th:src="@{js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{js/jquery.zoom.min.js}"></script>
+    <script th:src="@{js/jquery.dd.min.js}"></script>
+    <script th:src="@{js/jquery.slicknav.js}"></script>
+    <script th:src="@{js/owl.carousel.min.js}"></script>
+    <script th:src="@{js/main.js}"></script>
+    <script>
+        var page = 1;
+        var totalpage = $('#totalpage').val();
+        var action = 'inactive';
+
+        $(document).ready(function(){
+            $(".qt-plus").click(function(){
+                $(this).parent().children(".qt").html(parseInt($(this).parent().children(".qt").html()) + 1);
+            });
+
+              $(".qt-minus").click(function(){
+
+                child = $(this).parent().children(".qt");
+
+                if(parseInt(child.html()) > 1) {
+                  child.html(parseInt(child.html()) - 1);
+                }
+              });
+
+
+            $('#addsc').click(function(event){
+                var checkbox = document.getElementsByName("size");
+                var masize = "trung";
+                for (var i = 0; i < checkbox.length; i++){
+                    if (checkbox[i].checked){
+                        var masize = checkbox[i].value;
+                    }
+                }
+                if (masize === "trung"){
+                     alert(" bạn chưa chọn size cho sản phẩm  ");
+                }
+                else{
+                      var sl = $(".qt").text();
+                      $.ajax({
+                           url: "http://localhost:9999/savesc",
+                           type: "GET",
+                           data: {
+                              id : $('#id').val(),
+                              masp : $('#masp').val(),
+                              masize : masize,
+                              soluong : sl
+                           },
+                           success: function(data ) {
+                                 alert(data);
+                           },
+                           error: function(e){
+                                alert(" số lượng hàng không đủ ! ");
+                           }
+                      });
+
+                }
+            });
+
+
+            $('.buy-now').click(function(event){
+                var check = "trung";
+                var checkbox = document.getElementsByName("size");
+                var masize = "trung";
+                for (var i = 0; i < checkbox.length; i++){
+                    if (checkbox[i].checked){
+                        var masize = checkbox[i].value;
+                    }
+                }
+                if (masize === "trung"){
+                     alert(" bạn chưa chọn size cho sản phẩm  ");
+                }else{
+                    var sl = $(".qt").text();
+                    $.ajax({
+                           url: "http://localhost:9999/savesc",
+                           type: "GET",
+                           data: {
+                              id : $('#id').val(),
+                              masp : $('#masp').val(),
+                              masize : masize,
+                              soluong : sl
+                           },
+                           success: function(data ) {
+                                 window.location='http://localhost:9999/check-out?id='+$('#id').val()+'&masp='+$('#masp').val()+'&masize='+masize+'&soluong='+sl;
+                           },
+                           error: function(e){
+                                check = "h" ;
+                                alert(" số lượng hàng không đủ ! ");
+                           }
+                    });
+
+                }
+
+            });
+
+            if(action == 'inactive'){
+                action = 'active';
+                LoadData(page);
+            }
+
+            $(window).scroll(function(){
+                if($(window).scrollTop() + $(window).height() > $('#load_data').height() && page < totalpage && action == 'inactive')
+                {
+
+                    action = 'active';
+                    page = page + 1;
+                    setTimeout(function(){
+                        LoadData(page);
+                    },1000);
+                }
+            });
+
+        });
+
+
+        function LoadData(page) {
+            $.ajax({
+                url: 'http://localhost:9999/danhgiaproduct',
+                type: 'GET',
+                data: {
+                    masp: $('#masp').val(),
+                    page: page,
+                },
+                success: function (rs) {
+
+                    var str = "";
+                    $.each(rs, function (i, item) {
+                        str += "<div class='co-item'>" ;
+                        str += "<div class='avatar-text'>" ;
+                        str += "<div class='at-rating'>";
+                        if(item.SOSAO >4){
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                        }
+                        if(item.SOSAO >3 && item.SOSAO <=4){
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                        }
+                        if(item.SOSAO >2 && item.SOSAO <=3){
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                        }
+                        if(item.SOSAO >1 && item.SOSAO <=2){
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                        }
+                        if(item.SOSAO >0 && item.SOSAO <=1){
+                            str += "<i class='fa fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                        }
+                        if(item.SOSAO == 0){
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                            str += "<i class='far fa-star'>";
+                            str += "</i>";
+                        }
+
+                        str += "</div>";
+                        str += "<h5 >" + item.HOTEN;
+                        str += "<span >" + item.NGAYDG ;
+                        str += "</span>";
+                        str += "</h5>";
+                        str += "<div class='at-reply'>" + item.BINHLUAN;
+                        str += "</div>";
+                        str += "</div>";
+                        str += "</div>";
+                    });
+                    // id của thẻ tbody để hiển thị tất cả cá tr ra
+                    $('#load_data').append(str);
+                    action = 'inactive';
+                }
+            });
+        };
+
+        $('#search').keypress(function(event){
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if (keycode == '13') {
+            window.location='http://localhost:9999/shop?tensp='+$('#search').val();
+          }
+        });
+    </script>
+</body>
+
+</html>

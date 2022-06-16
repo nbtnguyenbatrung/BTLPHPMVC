@@ -1,0 +1,492 @@
+{% extends 'baseql.html' %}
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  align=center>
+  <div class="modal-dialog modal-lg" role="document"
+    style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" align=center>
+          <h3> Thêm sản phẩm cho web </h3>
+
+          <form class="form-horizontal" method="post" action="/?admin/product/add" enctype="multipart/form-data">
+
+            <div class="form-group">
+              <label class="control-label col-sm-4">Tên hãng *</label>
+              <div class="col-sm-8">
+                <select name="tra_id" id="tra_id" required class="form-control" style="width: 70% ;">
+                  <option value=""> chọn hãng cung cấp </option>
+                  {% for trademark in trademarks %}
+                  <option value="{{ trademark.tra_id }}">{{ trademark.name }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4">Tên khuyến mại</label>
+              <div class="col-sm-8">
+                <select name="prom_id" id="prom_id" class="form-control" style="width: 70% ;">
+                  <option value=""> chọn khuyến mại </option>
+                  {% for promotion in promotions %}
+                  <option value="{{ promotion.prom_id }}">{{ promotion.name }} {{ promotion.percent }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4">Tên loại sản phẩm *</label>
+              <div class="col-sm-8">
+                <select name="pt_id" id="pt_id" required class="form-control" style="width: 70% ;">
+                  <option value=""> chọn loại sản phẩm </option>
+                  {% for typeProduct in typeProducts %}
+                  <option value="{{ typeProduct.pt_id }}">{{ typeProduct.name }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Tên sản phẩm * </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" style="width: 70% ;" placeholder="Tên sản phẩm" name="name"
+                  required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Đơn giá * </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" style="width: 70% ;" placeholder="Đơn giá" name="price" required
+                  min="1"  />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Số lượng * </label>
+              <div class="col-sm-8">
+                <input type="number" class="form-control" style="width: 70% ;" placeholder="Đơn giá" name="quantity"
+                  required min="1" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> </label>
+              <div class="col-sm-8">
+                <img id="image" src="" width="120" height="130" class="img-thumbnail">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Hình nền chính * </label>
+              <div class="col-sm-8">
+                <input type="file" class="form-control" style="width: 70% ;" id="fileupload" name="fileupload"
+                  onchange="choosefile(this)" accept="image/png , image/jpg" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name">Mô tả</label>
+              <div class="col-sm-8">
+                <textarea name="description" id="motaadd" cols="30" rows="5"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block table %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Bảng Sản Phẩm
+  </div>
+  <div>
+    <table class="table" ui-jq="footable" ui-options='{
+      "paging": {
+        "enabled": true
+      },
+      "filtering": {
+        "enabled": true
+      },
+      "sorting": {
+        "enabled": true
+      }}'>
+      <thead>
+        <tr>
+          <th style="text-align:center">MASP</th>
+          <th style="text-align:center ;width: 50%;">Tên Sản Phẩm</th>
+          <th style="text-align:center"> Số Sao </th>
+          <th style="text-align:center">Đơn Giá</th>
+          <th style="text-align:center">Số Lượng </th>
+          <th style="text-align:center">Tác Vụ </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr data-expanded="true" align="center">
+          <input type="hidden" name="description" value="{{ product.description }}" id="descriptiontd">
+          <input type="hidden" name="tra_id" value="{{ product.tra_id }}" id="tra_idtd">
+          <input type="hidden" name="prom_id" value="{{ product.prom_id }}" id="prom_idtd">
+          <input type="hidden" name="pt_id" value="{{ product.pt_id }}" id="pt_idtd">
+          <input type="hidden" name="image" value="{{ product.image }}" id="imagetd">
+          <input type="hidden" name="price" value="{{ product.price }}" id="pricetd">
+          <td>{{ product.pro_id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.n_rate }}</td>
+          <td>{{ product.price|number_format(0, '.', ',') }} </td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <a class="editproduct">
+              <button title=" Sửa " data-toggle="modal" data-target=".bs-example-modal-lg1">
+                <i class="fa fa-wrench" style="color : black; "></i>
+              </button>
+            </a>
+            <a href = "/?admin/image/{{ product.pro_id }}/index" target='_blank'>
+              <button title=" Thêm ảnh phụ cho sản phẩm " >
+                <i class="fa fa-image"></i>
+              </button>
+            </a>
+            <a data-id="{{ product.pro_id }}" data-name="{{ product.name }}"
+              onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name'))">
+              <button title=" xóa ">
+                <i class="fa fa-times" style="color : black "></i>
+              </button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- phân trang   -->
+
+
+    <ul class="pagination" role="menubar" aria-label="Pagination">
+      {% if ( currentPage > 1 ) %}
+      <li><a href="?admin/product/index&page=1"><span>First</span></a></li>
+      <li><a href="?admin/product/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+      {% else %}
+      <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+      <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+      {% endif %}
+
+      {% for i in 1..totalPage %}
+      <li {% if ( currentPage==i ) %} class="current" {% endif %}><a href="?admin/product/index&page={{i}}">{{i}}</a>
+      </li>
+      {% endfor %}
+
+      {% if ( currentPage < totalPage ) %} <li><a
+          href="?admin/product/index&page={{currentPage+1}}"><span>Next</span></a></li>
+        <li><a href="?admin/product/index&page={{totalPage}}"><span>Last</span></a></li>
+        {% else %}
+        <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+        <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+        {% endif %}
+
+    </ul>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ConfimationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông Báo </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có muốn xóa Sản Phẩm " <span id="SanPhamName"></span> " ?
+          </div>
+          <div class="modal-footer">
+            <a id="yesOption" onclick="showinfomation()" type="button" class="btn btn-danger">Yes</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- phần modol của edit  -->
+
+    <div class="modal fade bs-example-modal-lg1 myform" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      align=center>
+      <div class="modal-dialog modal-lg" role="document"
+        style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row" align=center>
+              <h3> Sửa sản phẩm cho web </h3>
+
+              <form class="form-horizontal" method="post" action="/?admin/product/update" enctype="multipart/form-data">
+
+                <input type="hidden" name="pro_id" id="pro_idEdit">
+                <input type="hidden" id="imageOld" name="imageOld">
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4">Tên hãng *</label>
+                  <div class="col-sm-8">
+                    <select name="tra_id" id="tra_idEdit" required class="form-control" style="width: 70% ;">
+                      <option value=""> chọn hãng cung cấp </option>
+                      {% for trademark in trademarks %}
+                      <option value="{{ trademark.tra_id }}">{{ trademark.name }} </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4">Tên khuyến mại</label>
+                  <div class="col-sm-8">
+                    <select name="prom_id" id="prom_idEdit" class="form-control" style="width: 70% ;">
+                      <option value=""> chọn khuyến mại </option>
+                      {% for promotion in promotions %}
+                      <option value="{{ promotion.prom_id }}">{{ promotion.name }} {{ promotion.percent }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4">Tên loại sản phẩm *</label>
+                  <div class="col-sm-8">
+                    <select name="pt_id" id="pt_idEdit" required class="form-control" style="width: 70% ;">
+                      <option value=""> chọn loại sản phẩm </option>
+                      {% for typeProduct in typeProducts %}
+                      <option value="{{ typeProduct.pt_id }}">{{ typeProduct.name }} </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Tên sản phẩm * </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" style="width: 70% ;" placeholder="Tên sản phẩm" name="name"
+                      id="nameEdit" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Đơn giá * </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" style="width: 70% ;" placeholder="Đơn giá" name="price"
+                      id="priceEdit" min="1"  required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Số lượng * </label>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control" style="width: 70% ;" placeholder="Đơn giá" name="quantity"
+                      id="quantityEdit" min="1" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> </label>
+                  <div class="col-sm-8">
+                    <img id="imageEdit" src="" width="120" height="130" class="img-thumbnail">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Hình nền chính </label>
+                  <div class="col-sm-8">
+                    <input type="file" class="form-control" style="width: 70% ;" id="fileuploadEdit" name="fileupload"
+                      onchange="choosefileedit(this)" accept="image/png , image/jpeg"  />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name">Mô tả</label>
+                  <div class="col-sm-8">
+                    <textarea name="description" id="descriptionEdit" cols="30" rows="5"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Save Edit</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+
+  function Showconfim(id, name) {
+
+    $('#SanPhamName').text(name);
+    $('#yesOption').attr('href', '/?admin/group-product/' + id + '/delete');
+    $('#ConfimationId').modal('show');
+  }
+
+  $(document).ready(function () {
+    $('.editproduct').on('click', function () {
+
+      $tr = $(this).closest('tr');
+      var data = $tr.children("td").map(function () {
+        return $(this).text();
+      }).get();
+      var data1 = $tr.children("input").map(function () {
+        return $(this).text();
+      }).get();
+
+      $('#pro_idEdit').val(data[0]);
+      $('#nameEdit').val(data[1]);
+      $('#priceEdit').val($("#pricetd").val());
+      $('#quantityEdit').val(data[4])
+      $('#tra_idEdit').val($("#tra_idtd").val());
+      $('#prom_idEdit').val($("#prom_idtd").val());
+      $('#pt_idEdit').val($("#pt_idtd").val());
+      $('#tra_idEdit').val($("#tra_idtd").val());
+      $('#descriptionEdit').val($("#descriptiontd").val());
+      $('#imageOld').val($("#imagetd").val());
+
+    });
+  });
+
+  function choosefile(fileInput) {
+    if (fileInput.files && fileInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#image').attr('src', e.target.result);
+
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+  function choosefileedit(fileInput) {
+    if (fileInput.files && fileInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#imageEdit').attr('src', e.target.result);
+
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+
+  function showinfomation() {
+    alert(" xóa dữ liệu thành công  ");
+  }
+
+  $("input[data-type='currency']").on({
+    keyup: function () {
+      formatCurrency($(this));
+    },
+    blur: function () {
+      formatCurrency($(this), "blur");
+    }
+  });
+
+
+  function formatNumber(n) {
+    // format number 1000000 to 1,234,567
+    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+
+  function formatCurrency(input, blur) {
+    // appends $ to value, validates decimal side
+    // and puts cursor back in right position.
+
+    // get input value
+    var input_val = input.val();
+
+    // don't validate empty input
+    if (input_val === "") { return; }
+
+    // original length
+    var original_len = input_val.length;
+
+    // initial caret position 
+    var caret_pos = input.prop("selectionStart");
+
+    // check for decimal
+    if (input_val.indexOf(".") >= 0) {
+
+      // get position of first decimal
+      // this prevents multiple decimals from
+      // being entered
+      var decimal_pos = input_val.indexOf(".");
+
+      // split number by decimal point
+      var left_side = input_val.substring(0, decimal_pos);
+      var right_side = input_val.substring(decimal_pos);
+
+      // add commas to left side of number
+      left_side = formatNumber(left_side);
+
+      // validate right side
+      right_side = formatNumber(right_side);
+
+      // On blur make sure 2 numbers after decimal
+      if (blur === "blur") {
+        right_side += "00";
+      }
+
+      // Limit decimal to only 2 digits
+      right_side = right_side.substring(0, 2);
+
+      // join number by .
+      input_val = left_side + "." + right_side;
+
+    } else {
+      // no decimal entered
+      // add commas to number
+      // remove all non-digits
+      input_val = formatNumber(input_val);
+      input_val = input_val;
+
+      // final formatting
+      if (blur === "blur") {
+        input_val += ".00";
+      }
+    }
+
+    // send updated string to input
+    input.val(input_val);
+
+    // put caret back in the right position
+    var updated_len = input_val.length;
+    caret_pos = updated_len - original_len + caret_pos;
+    input[0].setSelectionRange(caret_pos, caret_pos);
+  }
+
+</script>
+
+{% endblock %}

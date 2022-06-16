@@ -1,0 +1,381 @@
+{% extends 'baseql.html' %}
+
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    align=center aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document"
+        style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" align=center>
+                    <h3> Thêm Khuyến Mại cho hệ thống </h3>
+
+                    <form class="form-horizontal" method="post" action="/?admin/promotion/add" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Tên Khuyến Mại *
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" style="width: 70% ;"
+                                    placeholder="Tên nhóm sản phẩm" name="name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Phần trăm khuyến mại *
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" style="width: 70% ;"
+                                    placeholder="Phần trăm khuyến mại" type="number" name="percent" id="giakm" min="1"
+                                    max="99" maxlength="2">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Ngày Bắt Đầu * </label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" style="width: 70% ;" placeholder="Ngày bắt đầu "
+                                    name="from_date" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Ngày Kết Thúc *
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" style="width: 70% ;"
+                                    placeholder="Ngày kết thúc " name="to_date" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name"> </label>
+                            <div class="col-sm-8">
+                                <img id="image" src="" width="120" height="130" class="img-thumbnail">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name"> Hình nền Khuyến Mại *
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" style="width: 70% ;" id="fileupload"
+                                    name="fileupload" onchange="choosefile(this)" accept="image/png , image/jpg"
+                                    required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Mô tả</label>
+                            <div class="col-sm-8">
+                                <textarea name="description" id="motaadd" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block table %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Bảng Khuyến Mãi
+    </div>
+    <div>
+        <table class="table" ui-jq="footable" ui-options='{
+            "paging": {
+            "enabled": true
+            },
+            "filtering": {
+            "enabled": true
+            },
+            "sorting": {
+            "enabled": true
+            }}'>
+            <thead>
+                <tr>
+                    <th style="text-align:center">Mã Khuyến Mãi</th>
+                    <th style="text-align:center">Tên Khuyến Mãi</th>
+                    <th style="text-align:center">Phần trăm khuyến mại </th>
+                    <th style="text-align:center"> Ngày Bắt Đầu </th>
+                    <th style="text-align:center"> Ngày Kết Thúc </th>
+                    <th style="text-align:center"> Ngày Còn Lại </th>
+                    <th style="text-align:center">Tác Vụ </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for promotion in promotions %}
+                <tr data-expanded="true" align="center">
+                    <input type="hidden" name="description" value="{{ promotion.description }}" id="descriptiontd">
+                    <input type="hidden" name="image" value="{{ promotion.image }}" id="imagetd">
+                    <td>{{ promotion.prom_id }}</td>
+                    <td>{{ promotion.name }}</td>
+                    <td>{{ promotion.percent }}</td>
+                    <td>{{ promotion.from_date|date("Y-m-d") }}</td>
+                    <td>{{ promotion.to_date|date("Y-m-d") }}</td>
+                    <td>{{ promotion.diffdate }}</td>
+                    <td>
+                        <a class="editpromotion">
+                            <button title=" Sửa " data-toggle="modal" data-target=".bs-example-modal-lg1">
+                                <i class="fa fa-wrench" style="color : black; "></i>
+                            </button>
+                        </a>
+                        <a data-id="{{ promotion.prom_id }}" data-name="{{ promotion.name }}"
+                            data-gia="{{promotion.percent}}"
+                            onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name') , this.getAttribute('data-gia'))">
+                            <button title=" xóa ">
+                                <i class="fa fa-times" style="color : black "></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- phân trang   -->
+
+        {% if ( totalPage > 0 ) %}
+
+        <ul class="pagination" role="menubar" aria-label="Pagination">
+            {% if ( currentPage > 1 ) %}
+            <li><a href="?admin/group-product/index&page=1"><span>First</span></a></li>
+            <li><a href="?admin/group-product/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+            {% else %}
+            <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+            <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+            {% endif %}
+
+            {% for i in 1..totalPage %}
+            <li {% if ( currentPage==i ) %} class="current" {% endif %}><a
+                    href="?admin/group-product/index&page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if ( currentPage < totalPage ) %} <li><a
+                    href="?admin/group-product/index&page={{currentPage+1}}"><span>Next</span></a></li>
+                <li><a href="?admin/group-product/index&page={{totalPage}}"><span>Last</span></a></li>
+                {% else %}
+                <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+                <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+                {% endif %}
+
+        </ul>
+        {% endif %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="ConfimationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Báo </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có muốn xóa Khuyến Mại " <span id="KhuyenMaiName"></span> " với phần
+                        trăm khuyến mại " <span id="giakhuyenmai"></span> " ?
+                    </div>
+                    <div class="modal-footer">
+                        <a id="yesOption" onclick="showinfomation()" type="button" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- phần modol của edit  -->
+
+        <div class="modal fade bs-example-modal-lg1 myform" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" align=center>
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row" align=center>
+                            <h3> Sửa Khuyến Mại cho web </h3>
+
+                            <form class="form-horizontal" method="post" action="/?admin/promotion/update" enctype="multipart/form-data">
+
+                                <input hidden="true" id="idEdit" name="id">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name">Tên Khuyến Mại
+                                        * </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" style="width: 70% ;"
+                                            placeholder="Tên nhóm sản phẩm" name="name" id="nameEdit">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name">Phần trăm
+                                        khuyến mại * </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" style="width: 70% ;"
+                                            placeholder="Phần trăm khuyến mại" type="number" name="percent"
+                                            id="parcentEdit" min="1" max="99" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name">Ngày Bắt Đầu *
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input  type="date" class="form-control" style="width: 70% ;"
+                                            placeholder="Ngày bắt đầu " name="from_date" id="fromdateEdit" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name">Ngày Kết Thúc *
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input  type="date" class="form-control" style="width: 70% ;"
+                                            placeholder="Ngày kết thúc " name="to_date" id="todateEdit" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name"> </label>
+                                    <div class="col-sm-8">
+                                        <img id="imageEdit" src="" width="120" height="130" class="img-thumbnail">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name"> Hình nền
+                                        Khuyến Mại * </label>
+                                    <div class="col-sm-8">
+                                        <input type="file" class="form-control" style="width: 70% ;" 
+                                        id="fileuploadEdit" name="fileupload" onchange="choosefileedit(this)"
+                                            accept="image/png , image/jpeg" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="name">Mô tả</label>
+                                    <div class="col-sm-8">
+                                        <textarea name="description" id="motaEdit" cols="30" rows="5"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-primary" >Save
+                                            Edit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+    function Showconfim(id, name, percent) {
+
+        $('#KhuyenMaiName').text(name);
+        $('#giakhuyenmai').text(percent);
+        $('#yesOption').attr('href', 'http://btl.com:81/?admin/promotion/' + id + '/delete');
+        $('#ConfimationId').modal('show');
+    }
+
+    function showinfomation() {
+        alert(" xóa dữ liệu thành công  ");
+    }
+
+
+    $(document).ready(function () {
+        $('.editpromotion').on('click', function () {
+            //$('.myform').modal('show')
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log("trung " , data[3]);
+
+            $('#idEdit').val(data[0]);
+            $('#nameEdit').val(data[1]);
+            $('#parcentEdit').val(data[2]);
+            document.getElementById("fromdateEdit").valueAsDate = new Date(data[3])
+            document.getElementById("todateEdit").valueAsDate = new Date(data[4])
+        });
+    });
+
+    function choosefile(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+    function choosefileedit(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imageEdit').attr('src', e.target.result);
+
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+    async function upload() {
+        var text = $(this).text();
+        if (text == 'Save') {
+            let formData = new FormData();
+            formData.append("file", fileupload.files[0]);
+            let response = await fetch('/uploadkm', {
+                method: "POST",
+                body: formData
+            });
+
+        }
+        else {
+            let formData = new FormData();
+            formData.append("file", logo.files[0]);
+            let response = await fetch('/uploadkm', {
+                method: "POST",
+                body: formData
+            });
+
+        }
+
+    }
+
+    function showinfomation() {
+        alert(" xóa dữ liệu thành công  ");
+    }
+
+</script>
+
+{% endblock %}

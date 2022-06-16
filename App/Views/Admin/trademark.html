@@ -1,0 +1,280 @@
+{% extends 'baseql.html' %}
+
+
+{% block modal %}
+<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  align=center>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" align=center>
+          <h3> Thêm hãng cung cấp cho web </h3>
+
+          <form class="form-horizontal" method="post" action="/?admin/trademark/add" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Tên Hãng * </label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" style="width: 70% ;" placeholder="Tên hãng" name="name" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> </label>
+              <div class="col-sm-8">
+                <img id="image" src="" width="120" height="130" class="img-thumbnail">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="name"> Logo * </label>
+              <div class="col-sm-8">
+                <input type="file" class="form-control" style="width: 70% ;" id="fileupload" name="fileupload"
+                  onchange="choosefile(this)" accept="image/png , image/jpeg" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" onclick="upload()">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block table %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Bảng Thương Hiệu
+  </div>
+  <div>
+    <table class="table" ui-jq="footable" ui-options='{
+    "paging": {
+    "enabled": true
+    },
+    "filtering": {
+    "enabled": true
+    },
+    "sorting": {
+    "enabled": true
+    }}'>
+      <thead>
+        <tr>
+          <th style="text-align:center">Mã Hãng</th>
+          <th style="text-align:center">Tên Hãng</th>
+          <th style="text-align:center">Logo</th>
+          <th style="text-align:center">Tác Vụ </th>
+        </tr>
+      </thead>
+      <tbody id="load_data">
+        {% for trademark in trademarks %}
+        <tr data-expanded="true" align="center">
+          <input type="hidden" value="{{trademark.logo}}" id="logoTrademark">
+          <td>{{ trademark.tra_id }}</td>
+          <td>{{ trademark.name }}</td>
+          <td> {% if ( trademark.logo != "" ) %} 
+            <img src=" public/admin/img/logo/{{trademark.logo}} " height='130' width='120' class='img-thumbnail' >
+            {% endif %}
+          </td>
+          <td>
+            <a class="edittrademark">
+              <button title=" Sửa " data-toggle="modal" data-target=".bs-example-modal-lg1">
+                <i class="fa fa-wrench" style="color : black; "></i>
+              </button>
+            </a>
+            <a data-id="{{ trademark.tra_id }}" data-name="{{ trademark.name }}"
+              onclick="Showconfim(this.getAttribute('data-id') ,this.getAttribute('data-name'))">
+              <button title=" xóa ">
+                <i class="fa fa-times" style="color : black "></i>
+              </button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ConfimationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thông Báo </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có muốn xóa Thương hiệu " <span id="ThuonghieuName"></span> " ?
+          </div>
+          <div class="modal-footer">
+            <a id="yesOption" onclick="showinfomation()" type="button" class="btn btn-danger">Yes</a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- phân trang   -->
+
+
+    <ul class="pagination" role="menubar" aria-label="Pagination">
+      {% if ( currentPage > 1 ) %}
+      <li><a href="?admin/trademark/index&page=1"><span>First</span></a></li>
+      <li><a href="?admin/trademark/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+      {% else %}
+      <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+      <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+      {% endif %}
+
+      {% for i in 1..totalPage %}
+      <li {% if ( currentPage==i ) %} class="current" {% endif %}><a href="?admin/trademark/index&page={{i}}">{{i}}</a>
+      </li>
+      {% endfor %}
+
+      {% if ( currentPage < totalPage ) %} <li><a
+          href="?admin/trademark/index&page={{currentPage+1}}"><span>Next</span></a></li>
+        <li><a href="?admin/trademark/index&page={{totalPage}}"><span>Last</span></a></li>
+        {% else %}
+        <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+        <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+        {% endif %}
+
+    </ul>
+
+    <!-- phần modol của edit  -->
+
+    <div class="modal fade bs-example-modal-lg1 myform" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      align=center>
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row" align=center>
+              <h3> Sửa thương hiệu </h3>
+
+              <form class="form-horizontal" method="post" action="/?admin/trademark/update" enctype="multipart/form-data">
+                <input hidden="true" id="idEdit" name="id">
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Tên Hãng * </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" style="width: 70% ;" placeholder="Tên hãng" name="name"
+                      id="nameEdit" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> </label>
+                  <div class="col-sm-8">
+                    <img id="imageEdit" src="" width="120" height="130" class="img-thumbnail">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="name"> Logo * </label>
+                  <div class="col-sm-8">
+                    <input type="file" class="form-control" style="width: 70% ;" id="fileuploadEdit" name="fileupload"
+                      onchange="choosefileedit(this)" accept="image/png , image/jpg " required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" onclick="upload()">Save</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+  function Showconfim(id, name) {
+
+    $('#ThuonghieuName').text(name);
+    $('#yesOption').attr('href', 'http://btl.com:81/?admin/trademark/' + id + '/delete');
+    $('#ConfimationId').modal('show');
+  }
+
+  function choosefile(fileInput) {
+    if (fileInput.files && fileInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#image').attr('src', e.target.result);
+
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+  function choosefileedit(fileInput) {
+    if (fileInput.files && fileInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#imageEdit').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+
+  async function upload() {
+    var text = $(this).text();
+    if (text == 'Save') {
+      let formData = new FormData();
+      formData.append("file", fileupload.files[0]);
+      let response = await fetch('/upload', {
+        method: "POST",
+        body: formData
+      });
+    }
+    else {
+      let formData = new FormData();
+      formData.append("file", logo.files[0]);
+      let response = await fetch('/upload', {
+        method: "POST",
+        body: formData
+      });
+    }
+  }
+
+  function showinfomation() {
+    alert(" xóa dữ liệu thành công  ");
+  }
+
+  $(document).ready(function () {
+    $('.edittrademark').on('click', function () {
+      //$('.myform').modal('show')
+      $tr = $(this).closest('tr');
+      var data = $tr.children("td").map(function () {
+        return $(this).text();
+      }).get();
+      console.log("trung " , $("#logoTrademark").val());
+
+      $('#idEdit').val(data[0]);
+      $('#nameEdit').val(data[1]);
+      // document.images['imageEdit'].src = 'public/admin/img/logo/' + $("#logoTrademark").val()
+    });
+  });
+
+</script>
+
+{% endblock %}

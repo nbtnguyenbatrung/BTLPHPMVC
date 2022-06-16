@@ -1,0 +1,495 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Home :: w3layouts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- bootstrap-css -->
+	<link rel="stylesheet" href="public/admin/css/style.min.css">
+	<link rel="stylesheet" href="public/admin/css/bootstrap.min.css">
+	<!-- //bootstrap-css -->
+	<!-- Custom CSS -->
+	<link href="public/admin/css/style.css" rel='stylesheet' type='text/css' />
+	<link href="public/admin/css/style-responsive.css" rel="stylesheet" />
+	<!-- font CSS -->
+	<link
+		href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+		rel='stylesheet' type='text/css'>
+	<!-- font-awesome icons -->
+	<link rel="stylesheet" href="public/admin/css/font.css" type="text/css" />
+	<link th:href="public/admin/css/font-awesome.css/" rel="stylesheet">
+	<link rel="stylesheet" href="public/admin/css/morris.css" type="text/css" />
+	<link rel="stylesheet" href="public/admin/css/style-form.css">
+
+	<script src="public/admin/js/jquery2.0.3.min.js"></script>
+	<script src="public/admin/js/raphael-min.js"></script>
+	<script src="public/admin/js/morris.js"></script>
+
+</head>
+
+<body>
+	<section id="container">
+		<!--header start-->
+		<header class="header fixed-top clearfix">
+			<!--logo start-->
+			<div class="brand">
+				<a href="/?admin/admin/index" class="logo">
+					VISITORS
+				</a>
+				<div class="sidebar-toggle-box">
+					<div class="fa fa-bars"></div>
+				</div>
+			</div>
+			<!--logo end-->
+
+			<div class="top-nav clearfix">
+				<!--search & user info start-->
+				<ul class="nav pull-right top-menu">
+					<li>
+						<input type="text" class="form-control search" placeholder=" Search">
+					</li>
+					<!-- user login dropdown start-->
+					<li class="dropdown">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+							<img alt="" src="public/admin/images/3.png" />
+							<span class="username"> {{ current_user.name }} </span>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu extended logout">
+
+							<li style="cursor: pointer;"><a onclick="Showconfim()"><i class="fa fa-user"></i>profile
+								</a></li>
+							<li style="cursor: pointer;"><a onclick="ShowModal()"><i class="fa fa-lock"></i>change
+									password </a></li>
+							<li><a href="/?logout"><i class="fa fa-key"></i> Log Out</a></li>
+						</ul>
+					</li>
+					<!-- user login dropdown end -->
+
+				</ul>
+				<!--search & user info end-->
+			</div>
+		</header>
+		<!--header end-->
+		<!--sidebar start-->
+		<aside>
+			<div id="sidebar" class="nav-collapse">
+				<!-- sidebar menu start-->
+				<div class="leftside-navigation">
+					<ul class="sidebar-menu" id="nav-accordion">
+						<li>
+							<a class="active">
+								<i class="fa fa-dashboard"></i>
+								<span>Tổng quan </span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/?admin/group-product/index">
+								<i class="fa fa-book"></i>
+								<span> nhóm sản phẩm </span>
+							</a>
+						</li>
+
+						<li class="sub-menu">
+							<a href="javascript:;">
+								<i class="fa fa-th"></i>
+								<span>Sản phẩm </span>
+							</a>
+							<ul class="sub">
+								<li><a href="/?admin/product/index">Sản phẩm </a></li>
+								<li><a href="/?admin/product-promotion/index">Sản phẩm khuyến mại </a></li>
+								<li><a href="http://localhost:9999/admin/sanphamdanhgia">Sản phẩm được đánh giá </a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="/?admin/trademark/index">
+								<i class="fa fa-book"></i>
+								<span> thương hiệu sản phẩm </span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/?admin/promotion/index">
+								<i class="fa fa-money"></i>
+								<span> Khuyến mãi </span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/?admin/type-product/index">
+								<i class="fa fa-book"></i>
+								<span> Loại sản phẩm </span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/?admin/user/index">
+								<i class="fa fa-group"></i>
+								<span> Người dùng </span>
+							</a>
+						</li>
+
+						<li class="sub-menu">
+							<a href="javascript:;">
+								<i class="fa fa-tasks"></i>
+								<span> Hóa đơn </span>
+							</a>
+							<ul class="sub">
+								<li><a href="http://localhost:9999/admin/donhang"> Đơn hàng </a></li>
+								<li><a href="http://localhost:9999/admin/hoadon">Hóa đơn </a></li>
+
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+		<!--sidebar end-->
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="market-updates">
+					<div class="col-md-3 market-update-gd">
+						<div class="market-update-block clr-block-2">
+							<div class="col-md-4 market-update-right">
+								<i class="mdi mdi-account fs-3 mb-1 font-16"></i>
+							</div>
+							<div class="col-md-8 market-update-left">
+								<h4>Tổng số khách hàng </h4>
+								<h3 th:text="${tongslnd}"></h3>
+
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="col-md-3 market-update-gd">
+						<div class="market-update-block clr-block-1">
+							<div class="col-md-4 market-update-right">
+								<i class="mdi mdi-plus fs-3 font-16"></i>
+							</div>
+							<div class="col-md-8 market-update-left">
+								<h4>Khách hàng mới </h4>
+								<h3 th:text="${slndthang}"></h3>
+
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="col-md-3 market-update-gd">
+						<div class="market-update-block clr-block-3">
+							<div class="col-md-4 market-update-right">
+								<i class="mdi mdi-tag fs-3 mb-1 font-16"></i>
+							</div>
+							<div class="col-md-8 market-update-left">
+								<h4>Tổng số đơn hàng </h4>
+								<h3 th:text="${tongsldonhang}"></h3>
+
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="col-md-3 market-update-gd">
+						<div class="market-update-block clr-block-4">
+							<div class="col-md-4 market-update-right">
+								<i class="mdi mdi-table fs-3 mb-1 font-16"></i>
+							</div>
+							<div class="col-md-8 market-update-left">
+								<h4>Đơn hàng chờ duyệt</h4>
+								<h3 th:text="${sldhduyet}"></h3>
+
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="row">
+					<div class="panel-body">
+						<div class="col-md-12 w3ls-graph">
+							<!--agileinfo-grap-->
+							<div class="agileinfo-grap">
+								<div class="agileits-box">
+									<header class="agileits-box-header clearfix">
+										<h3>Thống kê doanh thu của tháng </h3>
+										<div class="toolbar">
+										</div>
+									</header>
+									<div class="agileits-box-body clearfix">
+										<div id="hero-area"></div>
+									</div>
+								</div>
+							</div>
+							<!--//agileinfo-grap-->
+
+						</div>
+					</div>
+				</div>
+
+				<div class="modal fade bs-example-modal-lgprofile " tabindex="-1" role="dialog"
+					aria-labelledby="myLargeModalLabel" align=center id="profileView">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="row" align=center>
+									<h3> Thông tin người dùng </h3>
+
+									<form class="form-horizontal" method="post" action="/?admin/user/edit-profile">
+										<input hidden="true" name="id" value="{{current_user.user_id}}">
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> Họ và tên * </label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" style="width: 70% ;"
+													placeholder="Họ và tên " name="name" required
+													value="{{current_user.name}}" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> Số điện thoại *
+											</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" style="width: 70% ;"
+													placeholder="Số điện thoại  " name="phone_number" required
+													value="{{current_user.phone_number}}" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> Email đăng nhập *
+											</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control" style="width: 70% ;"
+													placeholder="Email " name="email" required disabled
+													value="{{current_user.email}}" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-primary">Save</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog"
+					aria-labelledby="myLargeModalLabel" align=center id="changePassword">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="row" align=center>
+									<h3> Thay đổi mật khẩu </h3>
+
+									<form class="form-horizontal" method="post" action="/?admin/user/change-password"
+										id="changeUpdatePass">
+										<input hidden="true" name="id" value="{{current_user.user_id}}">
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> Mật khẩu cũ * </label>
+											<div class="col-sm-8">
+												<input type="password" class="form-control" style="width: 70% ;"
+													placeholder="Nhập mật khẩu cũ " name="oldPass" id="oldPass"
+													required />
+												<i style=" position: absolute;
+                                                                    top: 5px;
+                                                                    right: 115px;" class="bi bi-eye-slash"
+													id="togglePasswordOld"></i>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> mật khẩu mới *
+											</label>
+											<div class="col-sm-8">
+												<input type="password" class="form-control" style="width: 70% ;"
+													placeholder="Nhập mật khẩu mới  " id="newPass" name="newPass"
+													required />
+												<i style=" position: absolute;
+                                                                    top: 5px;
+                                                                    right: 115px;" class="bi bi-eye-slash"
+													id="togglePasswordNew"></i>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-sm-4" for="name"> Xác nhận mật khẩu *
+											</label>
+											<div class="col-sm-8">
+												<input type="password" class="form-control" style="width: 70% ;"
+													placeholder="xác nhận mật khẩu " name="confirmPass" required
+													id="confirmPass" />
+												<i style=" position: absolute;
+                                                                    top: 5px;
+                                                                    right: 115px;" class="bi bi-eye-slash"
+													id="togglePasswordCon"></i>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-primary">Save</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+
+			</section>
+			<!-- footer -->
+			<div class="footer">
+				<div class="wthree-copyright">
+					<p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+				</div>
+			</div>
+			<!-- / footer -->
+		</section>
+		<!--main content end-->
+	</section>
+	<script src="public/admin/js/bootstrap.js"></script>
+	<script src="public/admin/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="public/admin/js/scripts.js"></script>
+	<script src="public/admin/js/jquery.slimscroll.js"></script>
+	<script src="public/admin/js/jquery.nicescroll.js"></script>
+	<script src="public/admin/js/jquery.scrollTo.js"></script>
+	<!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js"
+	integrity="sha512-FOhq9HThdn7ltbK8abmGn60A/EMtEzIzv1rvuh+DqzJtSGq8BRdEN0U+j0iKEIffiw/yEtVuladk6rsG4X6Uqg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+	<!-- morris JavaScript -->
+	<script>
+		$(document).ready(function () {
+			//BOX BUTTON SHOW AND CLOSE
+			jQuery('.small-graph-box').hover(function () {
+				jQuery(this).find('.box-button').fadeIn('fast');
+			}, function () {
+				jQuery(this).find('.box-button').fadeOut('fast');
+			});
+			jQuery('.small-graph-box .box-close').click(function () {
+				jQuery(this).closest('.small-graph-box').fadeOut(200);
+				return false;
+			});
+
+			//CHARTS
+			function gd(year, day, month) {
+				return new Date(year, month - 1, day).getTime();
+			}
+
+			graphArea2 = Morris.Area({
+				element: 'hero-area',
+				padding: 10,
+				behaveLikeLine: true,
+				gridEnabled: false,
+				gridLineColor: '#dddddd',
+				axes: true,
+				resize: true,
+				smooth: true,
+				pointSize: 0,
+				lineWidth: 0,
+				fillOpacity: 0.85,
+				data: [
+					{ period: '2015 Q1', iphone: 2668, ipad: null },
+					{ period: '2015 Q2', iphone: 15780, ipad: 13799 },
+					{ period: '2015 Q3', iphone: 12920, ipad: 10975 },
+					{ period: '2015 Q4', iphone: 8770, ipad: 6600 },
+					{ period: '2016 Q1', iphone: 10820, ipad: 10924 },
+					{ period: '2016 Q2', iphone: 9680, ipad: 9010 },
+					{ period: '2016 Q3', iphone: 4830, ipad: 3805 },
+					{ period: '2016 Q4', iphone: 15083, ipad: 8977 },
+					{ period: '2017 Q1', iphone: 10697, ipad: 4470 },
+
+				],
+				lineColors: ['#eb6f6f', '#926383'],
+				xkey: 'period',
+				redraw: true,
+				ykeys: ['iphone', 'ipad'],
+				labels: ['All Visitors', 'Returning Visitors'],
+				pointSize: 2,
+				hideHover: 'auto',
+				resize: true
+			});
+
+
+		});
+
+
+		const togglePasswordOld = document.querySelector("#togglePasswordOld");
+		const passwordOld = document.querySelector("#oldPass");
+
+		togglePasswordOld.addEventListener("click", function () {
+			// toggle the type attribute
+			const type = passwordOld.getAttribute("type") === "password" ? "text" : "password";
+			passwordOld.setAttribute("type", type);
+
+			// toggle the icon
+			this.classList.toggle("bi-eye");
+		});
+
+		const togglePasswordNew = document.querySelector("#togglePasswordNew");
+		const passwordNew = document.querySelector("#newPass");
+
+		togglePasswordNew.addEventListener("click", function () {
+			// toggle the type attribute
+			const type = passwordNew.getAttribute("type") === "password" ? "text" : "password";
+			passwordNew.setAttribute("type", type);
+
+			// toggle the icon
+			this.classList.toggle("bi-eye");
+		});
+
+		const togglePasswordCon = document.querySelector("#togglePasswordCon");
+		const confirmPass = document.querySelector("#confirmPass");
+
+		togglePasswordCon.addEventListener("click", function () {
+			// toggle the type attribute
+			const type = confirmPass.getAttribute("type") === "password" ? "text" : "password";
+			confirmPass.setAttribute("type", type);
+
+			// toggle the icon
+			this.classList.toggle("bi-eye");
+		});
+
+
+		function Showconfim() {
+
+			$('#profileView').modal('show');
+
+		}
+
+		function ShowModal() {
+
+			$('#changePassword').modal('show');
+
+		}
+
+	</script>
+
+</body>
+
+</html>

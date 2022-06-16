@@ -1,0 +1,19 @@
+{
+    "name": "admin/btl",
+    "autoload": {
+        "psr-4": {
+            "Admin\\Btl\\": "src/",
+            "Core\\": "Core/",
+             "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "batrung",
+            "email": "batrung255@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "~2.0"
+    }
+}

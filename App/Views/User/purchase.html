@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Load font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/themify-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{css/me.css}" type="text/css">
+
+</head>
+<style>
+    /*https://www.cssscript.com/simple-5-star-rating-system-with-css-and-html-radios/*/
+    div.stars {
+        width: 250px;
+        display: inline-block;
+    }
+
+    input.star {
+        display: none;
+    }
+
+    label.star {
+        float: right;
+        padding: 10px;
+        font-size: 30px;
+        color: #444;
+        transition: all .2s;
+    }
+
+    input.star:checked~label.star:before {
+        content: '\f005';
+        color: #FD4;
+        transition: all .25s;
+    }
+
+    input.star-5:checked~label.star:before {
+        color: #FE7;
+        text-shadow: 0 0 20px #952;
+    }
+
+    input.star-1:checked~label.star:before {
+        color: #F62;
+    }
+
+    input.star-2:checked~label.star:before {
+        color: #F94;
+    }
+
+    input.star-3:checked~label.star:before {
+        color: #FA4;
+    }
+
+    label.star:hover {
+        transform: rotate(10deg) scale(1.3);
+    }
+
+    label.star:before {
+        content: '\f006';
+        font-family: FontAwesome;
+    }
+</style>
+<body style=" background-color: darkgray;">
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        hello.colorlib@gmail.com
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +65 11.188.888
+                    </div>
+                </div>
+                <div class="ht-right">
+                    <div class="dropdown" style="float:left;padding : 0;" th:if="${username}">
+                        <button class="dropbtn">Welcome,<p th:utext="${username}">
+                        </p></button>
+                        <div class="dropdown-content" style="left:0;">
+                            <a th:href="@{|http://localhost:9999/purchase?id=${id}}|"><i class=" fa fa-suitcase"></i>Tài Khoản của tôi</a>
+                            <a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a>
+                            <input id="id" type="hidden" th:value="${id}">
+                            <input id="totalpage" type="hidden" th:value="${totalpage}">
+                            <input id="totalpage1" type="hidden" th:value="${totalpage1}">
+                            <input id="totalpage2" type="hidden" th:value="${totalpage2}">
+                            <input id="totalpage3" type="hidden" th:value="${totalpage3}">
+                        </div>
+                    </div>
+                    <a th:unless="${username}" th:href="@{/login}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a ><i class="ti-facebook"></i></a>
+                        <a ><i class="ti-twitter-alt"></i></a>
+                        <a ><i class="ti-linkedin"></i></a>
+                        <a ><i class="ti-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a th:href="@{/}">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">All Product</button>
+                            <div class="input-group">
+                                <input type="text" placeholder="What do you need?" id="search">
+                                <button type="button"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:if="${username} and ${sl} gt 0" >
+                        <ul class="nav-right">
+                            <li class="cart-icon">
+                                <a th:href="@{/shopping-cart}">
+                                    <i class="icon_bag_alt"></i>
+                                    <span th:text="${sl}"></span>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <table th:each="giohang:${giohang}">
+                                            <tbody>
+                                            <tr>
+                                                <td class="si-pic">
+                                                    <img th:src="@{'img/products/'+${giohang.Image}}" alt="" />
+                                                </td>
+                                                <td class="si-text">
+                                                    <div class="product-selected">
+                                                        <h6 th:text="${giohang.TenSP}"></h6>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="select-button">
+                                        <a th:href="@{/shopping-cart}" class="primary-btn view-card">Xem Giỏ Hàng</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:unless="${username}" >
+                        <ul class="nav-right" style="    text-align: center;">
+                            <li class="cart-icon">
+                                <a th:href="@{login}">
+                                    <i class="icon_bag_alt"></i>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <span>Chưa có sản phẩm </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3" th:if="${sl == 0}" >
+                        <ul class="nav-right" style=" text-align: center;">
+                            <li class="cart-icon">
+                                <a th:href="@{/shopping-cart}">
+                                    <i class="icon_bag_alt"></i>
+                                </a>
+                                <div class="cart-hover">
+                                    <div class="select-items">
+                                        <span>Chưa có sản phẩm </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All brands</span>
+                        <ul class="depart-hover" >
+                            <li th:each="thuongHieus:${thuongHieus}">
+                                <a th:href="@{|/shop?mahang=${thuongHieus.maHang}|}" th:text="${thuongHieus.tenHang}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/shop}">Shop</a></li>
+                        <li><a >Collection</a>
+                            <ul class="dropdown" >
+                                <li th:each="loaisp:${loaisp}" >
+                                    <a th:href="@{|/shop?maloaisp=${loaisp.maLoaiSP}|}" th:text="${loaisp.tenLoaiSP}+'`s'"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/contact}">Contact</a></li>
+                        <li><a >Pages</a>
+                            <ul class="dropdown">
+                                <li><a th:if="${username}" th:href="@{/shopping-cart}">Shopping Cart</a></li>
+                                <li><a th:unless="${username}" th:href="@{/login}">Shopping Cart</a></li>
+                                <li><a th:unless="${username}" th:href="@{/register}">Register</a></li>
+                                <li><a th:unless="${username}" th:href="@{/login}">Login</a></li>
+                                <li><a th:if="${username}" th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- tài khoản của tôi -->
+    <div class="me-container">
+        <div class="me-left" role="tablist">
+            <ul class="nav" role="tablist" style="flex-direction: column;">
+                <li>
+                    <i class="fas fa-unlock-alt" style="margin-right : 10px"></i>
+                    <a data-toggle="tab" href="#tab-1" role="tab">Đổi mật khẩu</a>
+                </li>
+                <li style="margin-top : 20px">
+                    <i class="far fa-clipboard" style="margin-right : 10px"></i>
+                    <a class="active" data-toggle="tab" href="#tab-2" role="tab">Đơn mua</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade me-password" id="tab-1" role="tabpanel">
+                <div class="title">
+                    <h1 class="title-1" style="font-size: 20px;">
+                        Đổi Mật Khẩu
+                    </h1>
+                    <div class="title-2">
+                        Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
+                    </div>
+                </div>
+
+                <div class="title-content">
+                    <div class="mk">
+                        <div class="mk-nho">
+                            <div class="mk1">
+                                <label>Mật Khẩu Hiện Tại * </label>
+                                <input id="password-old" type="password">
+                                <button id="forwart" style="border: none;background-color: white;margin-left: 50px;">
+                                    Quên mật khẩu ?
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk">
+                        <div class="mk-nho">
+                            <div class="mk1">
+                                <label>Mật Khẩu Mới * </label>
+                                <input type="password" id="password-new">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk">
+                        <div class="mk-nho">
+                            <div class="mk1">
+                                <label>Nhập Lại Mật Khẩu * </label>
+                                <input id="confim-password" type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <button style="background-color: red;
+                    border: none;
+                    padding: 10px 20px;
+                    color: white;" id = "xn">Xác Nhận</button>
+                </div>
+            </div>
+            <div class="tab-pane fade-in active" id="tab-2" role="tabpanel">
+                <div class="tab-item">
+                    <ul class="nav" role="tablist">
+                        <li>
+                            <a data-toggle="tab" href="#tab-6" role="tab"> Tất cả đơn </a>
+                        </li>
+                        <li>
+                            <a class="active" data-toggle="tab" href="#tab-3" role="tab"> CHỜ XÁC NHẬN </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab-4" role="tab">ĐÃ GIAO </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab-5" role="tab"> ĐÃ HỦY </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-item-content">
+                    <div class="tab-content" style="margin: 0;
+                        padding: 0;
+                        width: 950px;
+                        margin-top: 50px;">
+                        <div class="tab-pane fade-in active" id="tab-3 " role="tabpanel">
+                            <div id="load_data"></div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-4" role="tabpanel">
+                            <div id="load_data1"></div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-5" role="tabpanel">
+                            <div id="load_data2"></div>
+
+                        </div>
+                        <div class="tab-pane fade" id="tab-6" role="tabpanel">
+                            <div class="tk">
+                                <input autocomplete="off"
+                                    placeholder="Tìm kiếm theo Tên Shop, ID đơn hàng hoặc Tên Sản phẩm">
+                            </div>
+                            <div id="load_data3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- kết thúc tài khoản của tôi -->
+
+    <!-- phần modal của đánh giá  -->
+    <div class="modal fade bs-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" align = center>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row" align = center style="flex-direction: column;">
+                        <h3> Đánh giá của người mua về sản phẩm </h3>
+                        <div class="comment-area">
+                            <div class="guiBinhLuan" style="display: flex;
+                                                        flex-direction: column;
+                                                        margin-top: 30px;">
+                                <div class="stars">
+                                    <form action="" class="myform">
+                                        <input class="star star-5" id="star-5" value="5" type="radio" name="star"/>
+                                        <label class="star star-5" for="star-5" title="Tuyệt vời"></label>
+
+                                        <input class="star star-4" id="star-4" value="4" type="radio" name="star"/>
+                                        <label class="star star-4" for="star-4" title="Tốt"></label>
+
+                                        <input class="star star-3" id="star-3" value="3" type="radio" name="star"/>
+                                        <label class="star star-3" for="star-3" title="Tạm"></label>
+
+                                        <input class="star star-2" id="star-2" value="2" type="radio" name="star"/>
+                                        <label class="star star-2" for="star-2" title="Khá"></label>
+
+                                        <input class="star star-1" id="star-1" value="1" type="radio" name="star"/>
+                                        <label class="star star-1" for="star-1" title="Tệ"></label>
+                                        <input type="hidden" id="maspdg"/>
+                                   </form>
+                                </div>
+                                <textarea maxlength="250" id="inpBinhLuan" placeholder="Viết suy nghĩ của bạn vào đây..."></textarea>
+                                <button id="sendmessage" style="    margin-top: 30px;
+                                    width: 150px;
+                                    border: none;
+                                    background-color: darkorange;
+                                    color: white;
+                                    padding: 10px;"> SEND MESSAGE </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- phần kết thúc modal cảu add  -->
+
+    <!-- Instagram Section Begin -->
+    <div class="instagram-photo">
+        <div class="insta-item set-bg" data-setbg="img/insta-1.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-2.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-3.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-4.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-5.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-6.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Serivius</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="footer-widget">
+                        <h5>My Account</h5>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shopping Cart</a></li>
+                            <li><a href="#">Shop</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>Join Our Newsletter Now</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                            template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="img/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/jquery-ui.min.js}"></script>
+    <script th:src="@{js/jquery.countdown.min.js}"></script>
+    <script th:src="@{js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{js/jquery.zoom.min.js}"></script>
+    <script th:src="@{js/jquery.dd.min.js}"></script>
+    <script th:src="@{js/jquery.slicknav.js}"></script>
+    <script th:src="@{js/owl.carousel.min.js}"></script>
+    <script th:src="@{js/main.js}"></script>
+    <script>
+
+        var page = 1;
+        var page1 = 1;
+        var page2 = 1;
+        var page3 = 1;
+        var totalpage = $('#totalpage').val();
+        var totalpage1 = $('#totalpage1').val();
+        var totalpage2 = $('#totalpage2').val();
+        var totalpage3 = $('#totalpage3').val();
+        var action = 'inactive';
+        var action1 = 'inactive';
+        var action2 = 'inactive';
+        var action3 = 'inactive';
+        $(document).ready(function(){
+            $('#xn').click(function(event){
+                if($('#password').val() == false || $('#password-new').val() == false || $('#confim-password').val() == false){
+                    alert(" Không được để trống các trường có ký hiệu * ! ");
+                }else{
+                    if($('#password-new').val() == $('#confim-password').val()){
+                        alert(" nhập lại mật khẩu không đúng ! ");
+                    }else{
+                        $.ajax({
+                           url: "http://localhost:9999/requestpass",
+                           type: "GET",
+                           data: {
+                              id : $('#name').val(),
+                              passold : $('#password').val(),
+                              passnew : $('#password-new').val()
+                           },
+                           success: function(data ) {
+                                 alert(data);
+
+                           },
+                           error: function(e){
+                                alert(e);
+                           }
+                        });
+                    }
+                }
+            });
+
+
+            if(action == 'inactive'){
+                action = 'active';
+                LoadData(page);
+            }
+
+            if(action1 == 'inactive'){
+                action1 = 'active';
+                LoadData1(page1);
+            }
+
+            if(action2 == 'inactive'){
+                action2 = 'active';
+                LoadData2(page2);
+            }
+
+            if(action3 == 'inactive'){
+                action3 = 'active';
+                LoadData3(page3);
+            }
+
+
+            $(window).scroll(function(){
+                if($(window).scrollTop() + $(window).height() > $('#load_data3').height() && page3 < totalpage3 && action3 == 'inactive')
+                {
+
+                    action3 = 'active';
+                    page3 = page3 + 1;
+                    setTimeout(function(){
+                        LoadData3(page3);
+                    },1000);
+                }
+            });
+
+            $(window).scroll(function(){
+                if($(window).scrollTop() + $(window).height() > $('#load_data').height() && page < totalpage && action == 'inactive')
+                {
+
+                    action = 'active';
+                    page = page + 1;
+                    setTimeout(function(){
+                        LoadData(page);
+                    },1000);
+                }
+            });
+
+            $(window).scroll(function(){
+                if($(window).scrollTop() + $(window).height() > $('#load_data1').height() && page3 < totalpage1 && action1 == 'inactive')
+                {
+
+                    action1 = 'active';
+                    page1 = page1 + 1;
+                    setTimeout(function(){
+                        LoadData1(page1);
+                    },1000);
+                }
+            });
+
+            $(window).scroll(function(){
+                if($(window).scrollTop() + $(window).height() > $('#load_data2').height() && page2 < totalpage2 && action2 == 'inactive')
+                {
+
+                    action2 = 'active';
+                    page2 = page2 + 1;
+                    setTimeout(function(){
+                        LoadData2(page2);
+                    },1000);
+                }
+            });
+
+            $('body').on('click','.mualai',function(){
+                var masp=$(this).data('masp');
+                var masize=$(this).data('masize');
+                $.ajax({
+                           url: "http://localhost:9999/savesc",
+                           type: "GET",
+                           data: {
+                              id : $('#id').val(),
+                              masp : masp,
+                              masize : masize,
+                              soluong : 1
+                           }
+                      });
+                    window.location='http://localhost:9999/check-out?id='+$('#id').val()+'&masp='+masp+'&masize='+masize+'&soluong='+1;
+            });
+
+            $('body').on('click','.huydon',function(){
+                var masp=$(this).data('masp');
+                var masize=$(this).data('masize');
+                var mahd = $(this).data('mahd');
+                $.ajax({
+                     url: "http://localhost:9999/admin/updateuserdh",
+                     type: "GET",
+                     data: {
+                        mahd: mahd,
+                        masp : masp,
+                        masize : masize
+                     },
+                     success: function(value ) {
+                         alert(value);
+                     },
+                     error: function(e){
+                         alert(" ERROR! ");
+                     }
+                });
+            });
+            $('body').on('click','.danhgia',function(){
+
+                var masp=$(this).data('masp');
+                var masize=$(this).data('masize');
+                $('.myform #maspdg').val(masp);
+            });
+
+            $('#sendmessage').click(function(event){
+                var soSao = $("input[name='star']:checked").val();
+                var binhLuan = $("#inpBinhLuan").val();
+                if (soSao == null ){
+                     alert(" số sao ít nhất là 1 ! ");
+                }
+                else{
+                    $.ajax({
+                         url: "http://localhost:9999/danhgiauser",
+                         type: "GET",
+                         data: {
+                            id : $('#id').val(),
+                            masp : $('#maspdg').val(),
+                            sosao : soSao,
+                            binhluan : binhLuan
+                         },
+                         success: function(value ) {
+                               alert(value);
+                         },
+                         error: function(e){
+                              alert(" ERROR! ");
+                         }
+                    });
+                }
+            });
+        });
+
+        function LoadData(page) {
+            $.ajax({
+                url: 'http://localhost:9999/purchase-all',
+                type: 'GET',
+                data: {
+                    id: $('#id').val(),
+                    page: page,
+                    type : 0,
+                },
+                success: function (rs) {
+
+                    var str = "";
+                    $.each(rs, function (i, item) {
+                        var img = './img/products/' + item.manHinh;
+                        str += "<div class='nd'>" ;
+
+                        str += "<div class='nd1'>";
+                        str += "<div class='nd-left'>";
+                        str += "<img src="+ img + " >";
+                        str += "<div class='nd-text'>";
+                        str += "<span>" + item.tenSP + "</span>" ;
+                        str += "<span>X" + item.soluong + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<div>";
+                        str += "<del style='color: darkgray;'>"+ item.giagoc +"</del>";
+                        str += "<span style='color: red;'>" + item.dongia + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<hr>";
+
+                        str += "<div class='nd2' >";
+                        str += "<span style='color: red;'>" + item.tongtien + "</span>" + "Tổng số tiền : ";
+                        str += "</div>" ;
+                        str += "<div class='nd3' >"
+                        str += "<a class='huydon' data-mahd='"+item.maHD+"' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"' >" ;
+                        str += "<button >" + "HỦY ĐƠN" ;
+                        str += "</button>" ;
+                        str += "</a>" ;
+                        str += "<a class='mualai' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"' >" ;
+                        str += "<button>" + "MUA LẠI" ;
+                        str += "</button>" ;
+                        str += "</a>" ;
+                        str += "</div>" ;
+
+                        str += "</div>";
+                        str += "<div style='height: 20px;background-color: darkgray;'>"
+                        str += "</div>";
+                    });
+                    // id của thẻ tbody để hiển thị tất cả cá tr ra
+                    $('#load_data').append(str);
+                    action = 'inactive';
+                }
+            });
+        };
+
+        function LoadData1(page1) {
+            $.ajax({
+                url: 'http://localhost:9999/purchase-all',
+                type: 'GET',
+                data: {
+                    id: $('#id').val(),
+                    page: page1,
+                    type : 1,
+                },
+                success: function (rs) {
+
+                    var str = "";
+                    $.each(rs, function (i, item) {
+                        var img = './img/products/' + item.manHinh;
+                        str += "<div class='nd'>" ;
+
+                        str += "<div class='nd1'>";
+                        str += "<div class='nd-left'>";
+                        str += "<img src="+ img + " >";
+                        str += "<div class='nd-text'>";
+                        str += "<span>" + item.tenSP + "</span>" ;
+                        str += "<span>X" + item.soluong + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<div>";
+                        str += "<del style='color: darkgray;'>"+ item.giagoc +"</del>";
+                        str += "<span style='color: red;'>" + item.dongia + "</span>";
+                        str += "</div>"
+                        str += "</div>";
+                        str += "<hr>";
+
+                        str += "<div class='nd2' >";
+                        str += "<span style='color: red;'>" + item.tongtien + "</span>" + "Tổng số tiền : ";
+                        str += "</div>" ;
+                        str += "<div class='nd3' >"
+                        if(item.songay < 10){
+
+                        str += "<button class='danhgia' data-toggle='modal' data-target='.bs-example-modal-lg' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"'>" + "ĐÁNH GIÁ" ;
+                        str += "</button>" ;}
+                        str += "<a class='mualai' data-masp= '"+item.maSP+"' >" ;
+                        str += "<button>" + "MUA LẠI" ;
+                        str += "</button>" ;
+                        str += "</a>" ;
+                        str += "</div>" ;
+
+                        str += "</div>";
+                        str += "<div style='height: 20px;background-color: darkgray;'>";
+                        str += "</div>";
+                    });
+                    // id của thẻ tbody để hiển thị tất cả cá tr ra
+                    $('#load_data1').append(str);
+                    action1 = 'inactive';
+                }
+            });
+        };
+
+        function LoadData2(page2) {
+            $.ajax({
+                url: 'http://localhost:9999/purchase-all',
+                type: 'GET',
+                data: {
+                    id: $('#id').val(),
+                    page: page2,
+                    type : 2,
+                },
+                success: function (rs) {
+
+                    var str = "";
+                    $.each(rs, function (i, item) {
+                        var img = './img/products/' + item.manHinh;
+                        str += "<div class='nd'>" ;
+
+                        str += "<div class='nd1'>";
+                        str += "<div class='nd-left'>";
+                        str += "<img src="+ img + " >";
+                        str += "<div class='nd-text'>";
+                        str += "<span>" + item.tenSP + "</span>" ;
+                        str += "<span>X" + item.soluong + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<div>";
+                        str += "<del style='color: darkgray;'>"+ item.giagoc +"</del>";
+                        str += "<span style='color: red;'>" + item.dongia + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<hr>";
+
+                        str += "<div class='nd2' >";
+                        str += "<span style='color: red;'>" + item.tongtien + "</span>" + "Tổng số tiền : ";
+                        str += "</div>" ;
+                        str += "<div class='nd3' >"
+                        str += "<a class='mualai' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"' >" ;
+                        str += "<button>" + "MUA LẠI" ;
+                        str += "</button>" ;
+                        str += "</a>" ;
+                        str += "</div>" ;
+
+                        str += "</div>";
+                        str += "<div style='height: 20px;background-color: darkgray;'>";
+                        str += "</div>";
+
+                    });
+                    // id của thẻ tbody để hiển thị tất cả cá tr ra
+                    $('#load_data2').append(str);
+                    action2 = 'inactive';
+                }
+            });
+       }
+            function LoadData3(page3) {
+            $.ajax({
+                url: 'http://localhost:9999/purchase-all',
+                type: 'GET',
+                data: {
+                    id: $('#id').val(),
+                    page: page3,
+                    type : -1,
+                },
+                success: function (rs) {
+
+                    var str = "";
+                    $.each(rs, function (i, item) {
+                        var img = './img/products/' + item.manHinh;
+                        str += "<div class='nd'>" ;
+
+                        str += "<div class='nd1'>";
+                        str += "<div class='nd-left'>";
+                        str += "<img src="+ img + " >";
+                        str += "<div class='nd-text'>";
+                        str += "<span>" + item.tenSP + "</span>" ;
+                        str += "<span>X" + item.soluong + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<div>";
+                        str += "<del style='color: darkgray;'>"+ item.giagoc +"</del>";
+                        str += "<span style='color: red;'>" + item.dongia + "</span>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<hr>";
+
+                        str += "<div class='nd2' >";
+                        str += "<span style='color: red;'>" + item.tongtien + "</span>" + "Tổng số tiền : ";
+                        str += "</div>" ;
+                        str += "<div class='nd3' >";
+                        if(item.trangthai == 0 ){
+                            str += "<a class='huydon' data-mahd='"+item.maHD+"' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"' >" ;
+                            str += "<button >" + "HỦY ĐƠN" ;
+                            str += "</button>" ;
+                            str += "</a>" ;
+                        }
+                        if(item.trangthai == 1){
+                            if(item.songay < 10){
+                                str += "<button data-toggle='modal' data-target='.bs-example-modal-lg'>" + "ĐÁNH GIÁ" ;
+                                str += "</button>" ;}
+                        }
+                        str += "<a class='mualai' data-masp= '"+item.maSP+"' data-masize='"+item.maSize+"' >" ;
+                        str += "<button>" + "MUA LẠI" ;
+                        str += "</button>" ;
+                        str += "</a>" ;
+                        str += "</div>" ;
+
+                        str += "</div>";
+                        str += "<div style='height: 20px;background-color: darkgray;'>"
+                        str += "</div>";
+                    });
+                    // id của thẻ tbody để hiển thị tất cả cá tr ra
+                    $('#load_data3').append(str);
+                    action3 = 'inactive';
+                }
+            });
+            };
+        $('#search').keypress(function(event){
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if (keycode == '13') {
+            window.location='http://localhost:9999/shop?tensp='+$('#search').val();
+          }
+        });
+    </script>
+</body>
+
+</html>

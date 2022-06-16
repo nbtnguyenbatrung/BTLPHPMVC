@@ -1,0 +1,56 @@
+.danhgia {
+        margin: 1rem;
+        padding: 1.875rem;
+        background-color: #fffbf8;
+        align-items: center;
+        display: flex;
+}
+
+.danhgia .danhgiarate{
+    text-align: center;
+    margin-right: 1.875rem;
+}
+
+.danhgia .danhgiarate .danhgiasosao{
+        color: #ee4d2d;
+        font-size: 1.125rem;
+}
+
+.danhgia .danhgiarate .rating {
+    font-size: 1.25rem;
+    margin-top: 0.625rem;
+}
+
+.danhgia .luachon{
+    flex: 1;
+    margin-left: 0.9375rem;
+}
+
+.danhgia .luachon .luachon1{
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        height: 2rem;
+        line-height: 2rem;
+        min-width: 6.25rem;
+        text-align: center;
+        padding: 0 0.625rem;
+        color: rgba(0,0,0,.8);
+        background-color: #fff;
+        border: 1px
+        solid rgba(0,0,0,.09);
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        margin-right: 0.5rem;
+        text-decoration: none;
+        color: rgba(0,0,0,.87);
+        text-transform: capitalize;
+        border-radius: 2px;
+        margin-bottom: 0.3125rem;
+        margin-top: 0.3125rem;
+}
+
+
