@@ -40,4 +40,13 @@ class ImageDTO extends \Core\Model
         return $stmt->execute();
     }
 
+    public function getImageProduct($id){
+        $sql = 'SELECT * from image WHERE pro_id = ' . $id;
+
+        $db = static::getDB();
+        $data = $db->query($sql);
+        $image = $data->fetchAll();
+        return $image;
+    }
+
 }

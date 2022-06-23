@@ -10,7 +10,7 @@ use \App\Models\PromotionDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class Product extends \Core\Controller 
+class Product extends Authenticated
 {
     protected function before()
     {
@@ -33,7 +33,8 @@ class Product extends \Core\Controller
              'trademarks' => $trademark->getAllTrademarkPage(),
              'promotions' => $promotion->getAllPromotionPage(),
              'totalPage' => Config::getCeil(count($product->getAllProductPage()) / 5) ,
-             'currentPage' => $_GET['page'] ] );
+             'currentPage' => $_GET['page'],
+             'tab3'=> true ] );
         }else{
             View::renderTemplate('Admin/product.html' , 
             ['products' => $product->getAllProduct(1)  , 

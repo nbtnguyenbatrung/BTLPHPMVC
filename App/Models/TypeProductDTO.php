@@ -19,9 +19,9 @@ class TypeProductDTO extends \Core\Model
     public function getAllTypeProduct($currentPage){
 
         if ($currentPage <= Config::getCeil(count($this->getAllTypeProductPage()) / 5)){
-            $sql = 'SELECT * from product_type WHERE status = 1 ORDER BY pt_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+            $sql = 'SELECT * from product_type WHERE status = 1 ORDER BY pt_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
         }else{
-            $sql = 'SELECT * from product_type WHERE status = 1 ORDER BY pt_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllTypeProductPage()) / 5)) . ' , 5 ' ;
+            $sql = 'SELECT * from product_type WHERE status = 1 ORDER BY pt_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllTypeProductPage()) / 5) , 5) . ' , 5 ' ;
         }
 
         $db = static::getDB();

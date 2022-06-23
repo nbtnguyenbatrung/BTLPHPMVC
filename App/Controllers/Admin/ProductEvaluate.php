@@ -8,7 +8,7 @@ use \App\Models\ProductEvaluateDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class ProductEvaluate extends \Core\Controller 
+class ProductEvaluate extends Authenticated
 {
 
     protected function before()

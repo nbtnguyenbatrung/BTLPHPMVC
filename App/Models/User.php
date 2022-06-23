@@ -156,6 +156,22 @@ class User extends \Core\Model
 
     }
 
+    public static function findByEmailUser($email)
+    {
+        $sql = 'SELECT * FROM user_account WHERE email = :email and role = :role';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':role', "user", PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        $stmt->execute();
+
+        return $stmt->fetch();
+
+    }
+
     /**
      //* Authenticate a user by email and password.
      * Authenticate a user by email and password. User account has to be active.
@@ -168,6 +184,20 @@ class User extends \Core\Model
     public function authenticate($email, $password)
     {
         $user = static::findByEmailAdmin($email);
+
+        if ($user && $user->status == 1) {
+
+            if (password_verify($password, $user->password)) {
+                return $user;
+            }
+        }
+
+        return false;
+    }
+
+    public function authenticateUser($email, $password)
+    {
+        $user = static::findByEmailUser($email);
 
         if ($user && $user->status == 1) {
 

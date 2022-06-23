@@ -13,5 +13,14 @@ class Logout extends \Core\Controller {
         $this->redirect('/?login');
     }
 
+    public function logoutUser()
+    {       
+        $_SESSION = [];
+
+        session_destroy();
+        
+        $this->redirect('/?loginUser');
+    }
+
 
 }

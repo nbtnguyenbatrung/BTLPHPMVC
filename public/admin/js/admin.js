@@ -380,78 +380,79 @@ $(document).ready(function() {
 
     });
 
-    $("#apply").click(function(event) {
-        var cboxes = document.getElementsByName('post[]');
-        var inputElements = document.getElementsByClassName('checkone');
-        var arr = [];
-        for (var i = 0; i < cboxes.length; i++) {
-            if (cboxes[i].checked == true) {
-                var val = inputElements[i].value;
-                arr.push(val);
-            }
-        }
-        if ($('input[name="post[]"]:checked').length > 0) {
-            $.ajax({
-                url: "http://localhost:9999/savedh",
-                type: "GET",
-                data: {
-                    key: $("#trangthai").val(),
-                    list: JSON.stringify(arr),
-                },
-                success: function(value) {
-                    alert(value);
-                    window.location = " http://localhost:9999/admin/donhang";
-                },
-                error: function(e) {
-                    alert(" ERROR! ");
-                }
-            });
-        } else {
-            alert("Chưa chọn đơn hàng nào !");
-        }
-    });
+    // $("#apply").click(function(event) {
+    //     var cboxes = document.getElementsByName('post[]');
+    //     var inputElements = document.getElementsByClassName('checkone');
+    //     var arr = [];
+    //     for (var i = 0; i < cboxes.length; i++) {
+    //         if (cboxes[i].checked == true) {
+    //             var val = inputElements[i].value;
+    //             arr.push(val);
+    //         }
+    //     }
+    //     if ($('input[name="post[]"]:checked').length > 0) {
+    //         $.ajax({
+    //             url: "http://localhost:9999/savedh",
+    //             type: "GET",
+    //             data: {
+    //                 key: $("#trangthai").val(),
+    //                 list: JSON.stringify(arr),
+    //             },
+    //             success: function(value) {
+    //                 alert(value);
+    //                 window.location = " http://localhost:9999/admin/donhang";
+    //             },
+    //             error: function(e) {
+    //                 alert(" ERROR! ");
+    //             }
+    //         });
+    //     } else {
+    //         alert("Chưa chọn đơn hàng nào !");
+    //     }
+    // });
 
-    $("#duyet").click(function(event) {
-        var arr = [];
-        var a = $("#checkone").val();
-        arr.push(a);
-        $.ajax({
-            url: "http://localhost:9999/savedh",
-            type: "GET",
-            data: {
-                key: 1,
-                list: JSON.stringify(arr),
-            },
-            success: function(value) {
-                alert(value);
-                window.location = " http://localhost:9999/admin/donhang";
-            },
-            error: function(e) {
-                alert(" ERROR! ");
-            }
-        });
-    });
+    // $("#duyet").click(function(event) {
+    //     var arr = [];
+    //     var a = $("#checkone").val();
+    //     alert("TRUNG")
+    //     alert(a)
+    //     // $.ajax({
+    //     //     url: "http://localhost:9999/savedh",
+    //     //     type: "GET",
+    //     //     data: {
+    //     //         key: 1,
+    //     //         list: JSON.stringify(arr),
+    //     //     },
+    //     //     success: function(value) {
+    //     //         alert(value);
+    //     //         window.location = " http://localhost:9999/admin/donhang";
+    //     //     },
+    //     //     error: function(e) {
+    //     //         alert(" ERROR! ");
+    //     //     }
+    //     // });
+    // });
 
-    $("#noduyet").click(function(event) {
-        var arr = [];
-        var a = $("#checkone").val();
-        arr.push(a);
-        $.ajax({
-            url: "http://localhost:9999/savedh",
-            type: "GET",
-            data: {
-                key: 2,
-                list: JSON.stringify(arr),
-            },
-            success: function(value) {
-                alert(value);
-                window.location = " http://localhost:9999/admin/donhang";
-            },
-            error: function(e) {
-                alert("ERROR !");
-            }
-        });
-    });
+    // $("#noduyet").click(function(event) {
+    //     var arr = [];
+    //     var a = $("#checkone").val();
+    //     arr.push(a);
+    //     $.ajax({
+    //         url: "http://localhost:9999/savedh",
+    //         type: "GET",
+    //         data: {
+    //             key: 2,
+    //             list: JSON.stringify(arr),
+    //         },
+    //         success: function(value) {
+    //             alert(value);
+    //             window.location = " http://localhost:9999/admin/donhang";
+    //         },
+    //         error: function(e) {
+    //             alert("ERROR !");
+    //         }
+    //     });
+    // });
 
     $("#file").change(function() {
         var files = $("#file")[0].files;

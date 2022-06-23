@@ -67,9 +67,9 @@ class Config
      */
     const MAILGUN_DOMAIN = 'your-mailgun-domain';
 
-    public static function getPage($currentPage){
+    public static function getPage($currentPage , $totalCount){
         if($currentPage == 0 ) return 0 ;
-        return ($currentPage - 1 )*5 ;
+        return ($currentPage - 1 )*$totalCount ;
     }
 
     public static function getCeil($count){

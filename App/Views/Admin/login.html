@@ -43,7 +43,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<form action="/?admin/login/create" method="post">
 				<input type="email" class="ggg" name="email" placeholder="E-MAIL" required autofocus
 					value="{{ email }}">
-				<input type="password" class="ggg" name="password" placeholder="PASSWORD" required="">
+				<input type="password" class="ggg" id="password" name="password" placeholder="PASSWORD" required>
+				<i style=" position: absolute;
+				top: 274px;
+				right: 35%;" class="bi bi-eye-slash" id="togglePassword"></i>
 				<span><input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif
 						%} />Remember Me</span>
 				<h6><a onclick="ShowModal()" style="cursor: pointer;">Forgot Password?</a></h6>
@@ -60,11 +63,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="row" align=center>
 								<h3> Quên mật khẩu </h3>
 
-								<form class="form-horizontal" method="post" 
-									action="/?admin/user/reset-password">
+								<form class="form-horizontal" method="post" action="/?admin/user/reset-password">
 
 									<div class="form-group">
-										<label class="control-label col-sm-4" for="name"> Nhập emai tài khoản đăng nhập *
+										<label class="control-label col-sm-4" for="name"> Nhập emai tài khoản đăng nhập
+											*
 										</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" style="width: 70% ;"
@@ -95,8 +98,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="public/admin/js/jquery.nicescroll.js"></script>
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 	<script src="public/admin/js/jquery.scrollTo.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js"
+	integrity="sha512-FOhq9HThdn7ltbK8abmGn60A/EMtEzIzv1rvuh+DqzJtSGq8BRdEN0U+j0iKEIffiw/yEtVuladk6rsG4X6Uqg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 	<script>
+
+		const togglePassword = document.querySelector("#togglePassword");
+		const password = document.querySelector("#password");
+
+		togglePassword.addEventListener("click", function () {
+			// toggle the type attribute
+			const type = password.getAttribute("type") === "password" ? "text" : "password";
+			password.setAttribute("type", type);
+
+			// toggle the icon
+			this.classList.toggle("bi-eye");
+		});
+
 		function ShowModal() {
 
 			$('#resetPassword').modal('show');

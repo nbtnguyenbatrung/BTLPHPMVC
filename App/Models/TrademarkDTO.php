@@ -19,9 +19,9 @@ class TrademarkDTO extends \Core\Model
     public function getAllTrademark($currentPage){
 
         if ($currentPage <= Config::getCeil(count($this->getAllTrademarkPage()) / 5) ){
-            $sql = 'SELECT * from trademark WHERE status = 1 ORDER BY tra_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+            $sql = 'SELECT * from trademark WHERE status = 1 ORDER BY tra_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
         }else{
-            $sql = 'SELECT * from trademark WHERE status = 1 ORDER BY tra_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllTrademarkPage()) / 5)) . ' , 5 ' ;
+            $sql = 'SELECT * from trademark WHERE status = 1 ORDER BY tra_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllTrademarkPage()) / 5) , 5) . ' , 5 ' ;
         }
 
         $db = static::getDB();

@@ -3,6 +3,7 @@
 namespace Core;
 
 use \Config\Admin\Auth;
+use \Config\User\AuthHomePage;
 use \Config\Flash;
 
 class View
@@ -31,6 +32,7 @@ class View
             $loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/App/Views');
             $twig = new \Twig_Environment($loader);
             $twig->addGlobal('current_user', \Config\Admin\Auth::getUser());
+            $twig->addGlobal('current_homePage', \Config\User\AuthHomePage::getUser());
             $twig->addGlobal('flash_messages', \Config\Flash::getMessages());
         }
 

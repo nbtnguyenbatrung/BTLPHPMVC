@@ -7,7 +7,7 @@ use \App\Models\PromotionDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class Promotion extends \Core\Controller 
+class Promotion extends Authenticated
 {
 
     protected function before()

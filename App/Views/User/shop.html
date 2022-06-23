@@ -1,565 +1,191 @@
-<!DOCTYPE html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Fashi Template" />
-    <meta name="keywords" content="Fashi, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Fashi | Template</title>
+{% extends 'baseUser.html' %}
 
-    <!-- Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-      rel="stylesheet"
-    />
+{% block style %}
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/themify-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-  </head>
-  <style>
-    .act{
-      color: #e7ab3c;
-    }
+<style>
+  .act {
+    color: #e7ab3c;
+  }
 
-    .actsize{
-      color: white;
-      background-color: black;
-    }
-  </style>
-  <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-      <div class="loader"></div>
-    </div>
+  .actsize {
+    color: white;
+    background-color: black;
+  }
+</style>
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-      <div class="header-top">
-        <div class="container">
-          <div class="ht-left">
-            <div class="mail-service">
-              <i class="fa fa-envelope"></i>
-              hello.colorlib@gmail.com
-            </div>
-            <div class="phone-service">
-              <i class="fa fa-phone"></i>
-              +65 11.188.888
-            </div>
-          </div>
-          <div class="ht-right">
-            <div class="dropdown" style="float:left;padding : 0;" th:if="${username}">
-              <button class="dropbtn">Welcome,<p th:utext="${username}">
-              </p></button>
-              <div class="dropdown-content" style="left:0;">
-                <a th:href="@{|http://localhost:9999/purchase?id=${id}}|"><i class=" fa fa-suitcase"></i>Tài Khoản của tôi</a>
-                <a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a>
-              </div>
-            </div>
-            <a th:unless="${username}" href="#" th:href="@{/login}" class="login-panel"><i class="fa fa-user"></i>Login</a>
-            <div class="top-social">
-              <a ><i class="ti-facebook"></i></a>
-              <a ><i class="ti-twitter-alt"></i></a>
-              <a ><i class="ti-google"></i></a>
-              <a ><i class="ti-instagram"></i></a>
-            </div>
-            <input id="totalpage" type="hidden" th:value="${totalpage}">
-            <input id="mahang" type="hidden" th:value="${mahang}">
-            <input id="maloaisp" type="hidden" th:value="${maloaisp}">
-            <input id="tensp" type="hidden" th:value="${tensp}">
-          </div>
+{% endblock %}
+
+{% block bredcrum %}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-text">
+          <a href="/"><i class="fa fa-home"></i> Home</a>
+          <span>Shop</span>
         </div>
       </div>
-      <div class="container">
-        <div class="inner-header">
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb Section Begin -->
+
+
+{% endblock %}
+
+{% block product %}
+
+<!-- Product Shop Section Begin -->
+<section class="product-shop spad">
+  <div class="container">
+    <div class="row">
+      <div class="
+          col-lg-3 col-md-6 col-sm-8
+          order-2 order-lg-1
+          produts-sidebar-filter
+        ">
+        <div class="filter-widget">
+          <h4 class="fw-title">group product</h4>
+          <ul class="filter-catagories" style="height: 250px;
+          overflow: auto;">
+            {% for groupProduct in groupProducts %}
+            {% if ( group == groupProduct.pg_id ) %}
+            <li>
+              <a href="?user/product-view/shop&group={{ urlGroup }}1" class="btnloaisp" 
+              data-loaisp="{{ groupProduct.pg_id }}" style="border: none; color: black;
+              font-weight: bold; background: none;"> {{ groupProduct.name }} </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="?user/product-view/shop&group={{ groupProduct.pg_id  }}{{ urlGroup }}1" class="btnloaisp" 
+              data-loaisp="{{ groupProduct.pg_id }}" style="border: none;
+                        background: none;"> {{ groupProduct.name }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="filter-widget">
+          <h4 class="fw-title">type product</h4>
+          <ul class="filter-catagories" style="height: 250px;
+          overflow: auto;">
+            {% for typeProduct in typeProducts %}
+            {% if ( type == typeProduct.pt_id ) %}
+            <li>
+              <a href="?user/product-view/shop&type={{ urlType }}1" class="btnloaisp" 
+              data-loaisp="{{ typeProduct.pt_id }}" style="border: none; color: black;
+              font-weight: bold; background: none;"> {{ typeProduct.name }} </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="?user/product-view/shop&type={{ typeProduct.pt_id  }}{{ urlType }}1" class="btnloaisp" 
+              data-loaisp="{{ typeProduct.pt_id }}" style="border: none;
+                        background: none;"> {{ typeProduct.name }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="filter-widget">
+          <h4 class="fw-title">Brand</h4>
+          <ul class="filter-catagories" style="height: 250px;
+                      overflow: auto;">
+            {% for trademark in trademarks %}
+            {% if ( brand == trademark.tra_id ) %}
+            <li>
+              <a href="?user/product-view/shop&brand={{ urlBrand }}1" class="btnhang" 
+              data-hang="{{ trademark.tra_id }}" style="border: none;
+                        background: none;"> {{ trademark.name }} </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="?user/product-view/shop&brand={{ trademark.tra_id  }}{{ urlBrand }}1" class="btnhang" 
+              data-hang="{{ trademark.tra_id }}" style="border: none;
+                        background: none;"> {{ trademark.name }} </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        
+      </div>
+      <div class="col-lg-9 order-1 order-lg-2">
+
+        <div class="product-list">
           <div class="row">
-            <div class="col-lg-2 col-md-2">
-              <div class="logo">
-                <a th:href="@{/}">
-                  <img src="img/logo.png" alt="" />
-                </a>
-              </div>
-            </div>
-            <div class="col-lg-7 col-md-7">
-              <div class="advanced-search">
-                <button type="button" class="category-btn">
-                  All Product
-                </button>
-                <div class="input-group">
-                  <input type="text" placeholder="What do you need?" id="search"/>
-                  <button type="button"><i class="ti-search"></i></button>
+            {% for product in products %}
+            <div class="col-lg-4 col-sm-6">
+              <div class="product-item">
+                <div class="pi-pic">
+                  <img src="public/admin/img/products/{{ product.image }}" alt="">
+                  {% if ( product.giasau > 0) %}
+                  <div class="sale" >Sale </div>
+                  {% endif %}
+                  <div class="icon">
+                    <i class="icon_heart_alt"></i>
+                  </div>
+                  <ul>
+                    <li class="quick-view"><a href="/?user/product-view/{{ product.pro_id }}/detail">+ Quick View</a></li>
+                  </ul>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-3 text-right col-md-3" th:if="${username} and ${sl} gt 0">
-              <ul class="nav-right">
-                <li class="cart-icon">
+                <div class="pi-text">
+                  <div class="catagory-name">{{ product.productTypeName }}</div>
                   <a href="#">
-                    <i class="icon_bag_alt"></i>
-                    <span th:text="${sl}"></span>
+                    <h5  style="overflow: hidden;white-space: nowrap;text-overflow: Ellipsis;width: 200px;margin: auto;" >
+                      {{ product.name }}
+                    </h5>
                   </a>
-                  <div class="cart-hover">
-                    <div class="select-items">
-                      <table>
-                        <tbody th:each="giohang:${giohang}">
-                          <tr>
-                            <td class="si-pic">
-                              <img th:src="@{'img/products/'+${giohang.Image}}" alt="" />
-                            </td>
-                            <td class="si-text">
-                              <div class="product-selected">
-                                <h6 th:text="${giohang.TenSP}"></h6>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="select-button">
-                      <a href="#" class="primary-btn view-card">Xem Giỏ Hàng</a>
-                    </div>
+                  {% if ( product.giasau > 0) %}
+                  <div class="product-price"  >
+                    <label > {{ product.giasau|number_format(0, '.', ',') }} VND </label>
+                    <span > {{ product.price|number_format(0, '.', ',') }} VND</span>
                   </div>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-3 text-right col-md-3" th:unless="${username}" >
-              <ul class="nav-right" style="    text-align: center;">
-                <li class="cart-icon">
-                  <a th:href="@{/login}">
-                    <i class="icon_bag_alt"></i>
-                  </a>
-                  <div class="cart-hover">
-                    <div class="select-items">
-                      <span>Chưa có sản phẩm </span>
-                    </div>
+                  {% else %}
+                  <div class="product-price" >
+                    {{ product.price|number_format(0, '.', ',') }} VND
                   </div>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-3 text-right col-md-3" th:if="${sl == 0}" >
-              <ul class="nav-right" style=" text-align: center;">
-                <li class="cart-icon">
-                  <a th:href="@{/shopping-cart}">
-                    <i class="icon_bag_alt"></i>
-                  </a>
-                  <div class="cart-hover">
-                    <div class="select-items">
-                      <span>Chưa có sản phẩm </span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <div class="container">
-          <div class="nav-depart">
-            <div class="depart-btn">
-              <i class="ti-menu"></i>
-              <span>All brands</span>
-              <ul class="depart-hover">
-                <li th:each="thuongHieus:${thuongHieus}"><a th:href="@{|?mahang=${thuongHieus.maHang}|}" th:text="${thuongHieus.tenHang}"></a></li>
-              </ul>
-            </div>
-          </div>
-          <nav class="nav-menu mobile-menu">
-            <ul>
-              <li><a th:href="@{/}">Home</a></li>
-              <li class="active"><a th:href="@{/shop}">Shop</a></li>
-              <li>
-                <a >Collection</a>
-                <ul class="dropdown">
-                  <li th:each="loaisp:${loaisp}"><a th:href="@{|?maloaisp=${loaisp.maLoaiSP}|}" th:text="${loaisp.tenLoaiSP}+'`s'"></a></li>
-                </ul>
-              </li>
-              <li><a th:href="@{/contact}">Contact</a></li>
-              <li>
-                <a >Pages</a>
-                <ul class="dropdown">
-                  <li><a th:if="${username}" th:href="@{/shopping-cart}">Shopping Cart</a></li>
-                  <li><a th:unless="${username}" th:href="@{/login}">Shopping Cart</a></li>
-                  <li><a th:unless="${username}" th:href="@{/register}">Register</a></li>
-                  <li><a th:unless="${username}" th:href="@{/login}">Login</a></li>
-                  <li><a th:if="${username}" th:href="@{/logout}">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-          <div id="mobile-menu-wrap"></div>
-        </div>
-      </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <div class="breacrumb-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="breadcrumb-text">
-              <a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
-              <span>Shop</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Breadcrumb Section Begin -->
-
-    <!-- Product Shop Section Begin -->
-    <section class="product-shop spad">
-      <div class="container">
-        <div class="row">
-          <div
-            class="
-              col-lg-3 col-md-6 col-sm-8
-              order-2 order-lg-1
-              produts-sidebar-filter
-            "
-          >
-            <div class="filter-widget">
-              <h4 class="fw-title">Categories</h4>
-              <ul class="filter-catagories">
-                <li th:each="loaisp:${loaisp}">
-                    <button class="btnloaisp" th:data-loaisp="${loaisp.maLoaiSP}"
-                            style="border: none;
-                            background: none;"
-                            th:text="${loaisp.tenLoaiSP}"></button>
-                </li>
-              </ul>
-            </div>
-            <div class="filter-widget">
-              <h4 class="fw-title" >Brand</h4>
-              <ul class="filter-catagories">
-                <li th:each="thuongHieus:${thuongHieus}">
-                  <button class="btnhang" th:data-hang="${thuongHieus.maHang}"
-                          style="border: none;
-                            background: none;"
-                          th:text="${thuongHieus.tenHang}"></button>
-                </li>
-              </ul>
-            </div>
-            <div class="filter-widget">
-              <h4 class="fw-title">Size</h4>
-              <div class="fw-size-choose">
-                <div class="sc-item" th:each="sizes:${sizes}">
-
-                    <label class="btnsize" th:data-size="${sizes.maSize}" th:text="${sizes.tenSize}" >
-                    </label>
-
+                  {% endif %}
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-9 order-1 order-lg-2">
-
-            <div class="product-list">
-              <div class="row" id="load_data">
-              </div>
-            </div>
-            <div class="loading-more">
-            </div>
+            {% endfor %}
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Product Shop Section End -->
+        <!-- phân trang   -->
 
-    <!-- Partner Logo Section Begin -->
-    <div class="partner-logo">
-      <div class="container">
-        <div class="logo-carousel owl-carousel">
-          <div class="logo-item">
-            <div class="tablecell-inner">
-              <img src="img/logo-carousel/logo-1.png" alt="" />
-            </div>
-          </div>
-          <div class="logo-item">
-            <div class="tablecell-inner">
-              <img src="img/logo-carousel/logo-2.png" alt="" />
-            </div>
-          </div>
-          <div class="logo-item">
-            <div class="tablecell-inner">
-              <img src="img/logo-carousel/logo-3.png" alt="" />
-            </div>
-          </div>
-          <div class="logo-item">
-            <div class="tablecell-inner">
-              <img src="img/logo-carousel/logo-4.png" alt="" />
-            </div>
-          </div>
-          <div class="logo-item">
-            <div class="tablecell-inner">
-              <img src="img/logo-carousel/logo-5.png" alt="" />
-            </div>
-          </div>
-        </div>
+        {% if ( totalPage > 0 ) %}
+        
+        <ul class="pagination" role="menubar" aria-label="Pagination">
+          {% if ( currentPage > 1 ) %}
+          <li><a href="?user/product-view/shop{{ url }}1"><span>First</span></a></li>
+          <li><a href="?user/product-view/shop{{ url }}{{currentPage-1}}"><span>Previous</span></a></li>
+          {% else %}
+          <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+          <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+          {% endif %}
+
+          {% for i in 1..totalPage %}
+          <li {% if ( currentPage == i ) %} class="current" {% endif %}><a
+                  href="?user/product-view/shop{{url}}{{i}}">{{i}}</a></li>
+          {% endfor %}
+
+          {% if ( currentPage < totalPage ) %} <li><a
+                  href="?user/product-view/shop{{ url }}{{currentPage+1}}"><span>Next</span></a></li>
+              <li><a href="?user/product-view/shop{{ url }}{{totalPage}}"><span>Last</span></a></li>
+              {% else %}
+              <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+              <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+              {% endif %}
+
+      </ul>
+      {% endif %}
+
       </div>
     </div>
-    <!-- Partner Logo Section End -->
+  </div>
+</section>
+<!-- Product Shop Section End -->
 
-    <!-- Footer Section Begin -->
-    <footer class="footer-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="footer-left">
-              <div class="footer-logo">
-                <a href="#"><img src="img/footer-logo.png" alt="" /></a>
-              </div>
-              <ul>
-                <li>Address: 60-49 Road 11378 New York</li>
-                <li>Phone: +65 11.188.888</li>
-                <li>Email: hello.colorlib@gmail.com</li>
-              </ul>
-              <div class="footer-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-google"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 offset-lg-1">
-            <div class="footer-widget">
-              <h5>Information</h5>
-              <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Checkout</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Serivius</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-2">
-            <div class="footer-widget">
-              <h5>My Account</h5>
-              <ul>
-                <li><a href="#">My Account</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Shopping Cart</a></li>
-                <li><a href="#">Shop</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="newslatter-item">
-              <h5>Join Our Newsletter Now</h5>
-              <p>
-                Get E-mail updates about our latest shop and special offers.
-              </p>
-              <form action="#" class="subscribe-form">
-                <input type="text" placeholder="Enter Your Mail" />
-                <button type="button">Subscribe</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="copyright-reserved">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="copyright-text">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-                All rights reserved | This template is made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by
-                <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              </div>
-              <div class="payment-pic">
-                <img src="img/payment-method.png" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer Section End -->
-
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.zoom.min.js"></script>
-    <script src="js/jquery.dd.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-      var page = 1;
-      var check = 1;
-      var action = 'inactive';
-      var mahang = $('#mahang').val();
-      var maloaisp = $('#maloaisp').val();
-      var masize = "";
-      var tensp = $('#tensp').val();
-      $(document).ready(function(){
-        if(action == 'inactive'){
-           action = 'active';
-           LoadData(page,mahang,maloaisp,masize,tensp);
-        }
-
-        $(window).scroll(function(){
-
-            if($(window).scrollTop() + $(window).height() > $('#load_data').height() && check == 1 && action == 'inactive')
-            {
-                action = 'active';
-                page = page + 1;
-                setTimeout(function(){
-                    LoadData(page,mahang,maloaisp,masize,tensp);
-                },1000);
-            }
-        });
-
-      });
-      $('body').on('click','.btnloaisp',function(){
-            $(this).siblings().removeClass("act");
-            $(this).addClass("act");
-            console.log("trung " ,$(this).data('loaisp') )
-            maloaisp=$(this).data('loaisp');
-            page = 1;
-            [...document.getElementsByClassName("col-lg-4")].map(n => n && n.remove());
-            document.getElementById("removeno").remove();
-            LoadData(page,mahang,maloaisp,masize,tensp);
-
-      });
-
-      $('body').on('click','.btnsize',function(){
-            masize=$(this).data('size');
-            page = 1;
-            [...document.getElementsByClassName("col-lg-4")].map(n => n && n.remove());
-            document.getElementById("removeno").remove();
-            LoadData(page,mahang,maloaisp,masize,tensp);
-        });
-
-      $('body').on('click','.btnhang',function(){
-            $(this).siblings().removeClass("act");
-            $(this).addClass("act");
-            mahang=$(this).data('hang');
-            page = 1;
-            [...document.getElementsByClassName("col-lg-4")].map(n => n && n.remove());
-            document.getElementById("removeno").remove();
-            LoadData(page,mahang,maloaisp,masize,tensp);
-
-        });
-
-      function LoadData(page,mahang,maloaisp,masize,tensp) {
-            $.ajax({
-                url: 'http://localhost:9999/productall',
-                type: 'GET',
-                data: {
-                    mahang: mahang,
-                    maloaisp: maloaisp,
-                    masize : masize,
-                    tensp : tensp,
-                    page : page,
-                },
-                success: function (rs) {
-                    if(rs == ""){
-                    var str = "";
-                          str += "<h1 id='removeno'>" + "không còn sản phẩm nào " + "</h1>";
-                          $('.loading-more').append(str);
-                          action = 'inactive';
-                          check = 2;
-                        }else{
-                    var str = "";
-                    $.each(rs, function (i, item) {
-
-                        var img = './img/products/' + item.manHinh;
-                        var href = 'http://localhost:9999/product?masp=' + item.maSP;
-                        str += "<div class='col-lg-4 col-sm-6' >" ;
-
-                        str += "<div class='product-item'>";
-                        str += "<div class='pi-pic'>";
-                        str += "<img src="+ img + " >";
-                        if(item.giasau > 0){
-                          str += "<div class='sale pp-sale'>" + "Sale" ;
-                          str += "</div>";
-                        }
-                        str += "<div class='icon'>";
-                        str += "<i class='icon_heart_alt'>";
-                        str += "</i>";
-                        str += "</div>";
-                        str += "<ul>";
-                        str += "<li class='quick-view'>" ;
-                        str += "<a href=" + href + " >" + " + Quick View " ;
-                        str += "</a>";
-                        str += "</li>";
-                        str += "</ul>" ;
-                        str += "</div>" ;
-                        str += "<div class='pi-text'>";
-                        str += "<div class='catagory-name'>giày " +item.tenloai;
-                        str += "</div>";
-                        str += "<a>";
-                        str += "<h5 >" + item.tenSP;
-                        str += "</h5>";
-                        str += "</a>";
-                        if(item.giasau > 0){
-                          str += "<div class='product-price'>"
-                          str += "<label>" + item.giasau ;
-                          str += "</label>";
-                          str += "<span >" + item.donGia;
-                          str += "</span>" ;
-                          str += "</div>";
-                        }else{
-                          str += "<div class='product-price' >" + item.donGia;
-                          str += "</div>";
-                        }
-                        str += "</div> ";
-                        str += "</div>"
-                        str += "</div>";
-
-                    });
-
-                    // id của thẻ tbody để hiển thị tất cả cá tr ra
-                    $('#load_data').append(str);
-                    action = 'inactive';
-                    check = 1;
-                  }
-                }
-            });
-      };
-
-      $('#search').keypress(function(event){
-          var keycode = (event.keyCode ? event.keyCode : event.which);
-          if (keycode == '13') {
-            console.log("trung " ,$('#search').val() )
-            console.log("trung " ,mahang )
-            console.log("trung " ,maloaisp )
-            console.log("trung " ,masize )
-            tensp=$('#search').val();
-            page = 1;
-            [...document.getElementsByClassName("col-lg-4")].map(n => n && n.remove());
-            document.getElementById("removeno").remove();
-            LoadData(page,mahang,maloaisp,masize,tensp);
-          }
-      });
-
-      $('body').on('click','.btnsize',function(){
-            masize=$(this).data('size');
-            page = 1;
-            [...document.getElementsByClassName("col-lg-4")].map(n => n && n.remove());
-            document.getElementById("removeno").remove();
-            LoadData(page,mahang,maloaisp,masize,tensp);
-        });
-    </script>
-  </body>
-</html>
+{% endblock %}

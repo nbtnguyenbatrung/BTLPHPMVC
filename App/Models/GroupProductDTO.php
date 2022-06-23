@@ -20,9 +20,9 @@ class GroupProductDTO extends \Core\Model
     public function getAllGroupProduct($currentPage){
 
         if ($currentPage <= Config::getCeil(count($this->getAllGroupProductPage()) / 5) ){
-            $sql = 'SELECT * from product_group WHERE status = 1 ORDER BY pg_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+            $sql = 'SELECT * from product_group WHERE status = 1 ORDER BY pg_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
         }else{
-            $sql = 'SELECT * from product_group WHERE status = 1 ORDER BY pg_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllGroupProductPage()) / 5)) . ' , 5 ' ;
+            $sql = 'SELECT * from product_group WHERE status = 1 ORDER BY pg_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllGroupProductPage()) / 5) , 5) . ' , 5 ' ;
         }
         
         $db = static::getDB();

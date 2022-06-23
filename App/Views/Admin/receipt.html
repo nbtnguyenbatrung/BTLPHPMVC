@@ -6,183 +6,190 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Responsive_table :: w3layouts</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+    <title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Responsive_table :: w3layouts
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- bootstrap-css -->
-<link rel="stylesheet" href="public/admin/css/bootstrap-3.3.7-dist/css/bootstrap.css">
-<link rel="stylesheet" href="public/admin/css/bootstrap.min.css" >
-<!-- //bootstrap-css -->
-<!-- Custom CSS -->
-<link href="public/admin/css/style.css" rel='stylesheet' type='text/css' />
-<link href="public/admin/css/style-responsive.css" rel="stylesheet"/>
+    <script
+        type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- bootstrap-css -->
+    <link rel="stylesheet" href="public/admin/css/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="public/admin/css/bootstrap.min.css">
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link href="public/admin/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="public/admin/css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="public/admin/css/admin.css">
 
 
-<!-- font CSS -->
-<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-<!-- font-awesome icons -->
-<link rel="stylesheet" href="public/admin/css/font.css" type="text/css"/>
-<link href="public/admin/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="public/admin/css/style-form.css">
+    <!-- font CSS -->
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="public/admin/css/font.css" type="text/css" />
+    <link href="public/admin/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/admin/css/style-form.css">
 
-<!-- //font-awesome icons -->
-<script src="public/admin/js/jquery2.0.3.min.js"></script>
-<script src="public/admin/js/jqueryv3.6.0.js"></script>
+    <!-- //font-awesome icons -->
+    <script src="public/admin/js/jquery2.0.3.min.js"></script>
+    <script src="public/admin/js/jqueryv3.6.0.js"></script>
 </head>
+
 <body>
-<section id="container">
-<!--header start-->
-<header class="header fixed-top clearfix">
-<!--logo start-->
-<div class="brand">
+    <section id="container">
+        <!--header start-->
+        <header class="header fixed-top clearfix">
+            <!--logo start-->
+            <div class="brand">
 
-    <a href="/?admin/admin/index" class="logo">
-        VISITORS
-    </a>
-    <div class="sidebar-toggle-box">
-        <div class="fa fa-bars"></div>
-    </div>
-</div>
-<!--logo end-->
+                <a href="/?admin/admin/index" class="logo">
+                    VISITORS
+                </a>
+                <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars"></div>
+                </div>
+            </div>
+            <!--logo end-->
 
-<div class="top-nav clearfix">
-    <!--search & user info start-->
-    <ul class="nav pull-right top-menu">
-        <!-- user login dropdown start-->
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="public/admin/images/3.png">
-                <span class="username" > {{current_user.name}} </span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-                <li><a href="/?logout"><i class="fa fa-key"></i> Log Out</a></li>
-            </ul>
-        </li>
-        <!-- user login dropdown end -->
-       
-    </ul>
-    <!--search & user info end-->
-</div>
-</header>
-<!--header end-->
-<!--sidebar start-->
-<aside>
-    <div id="sidebar" class="nav-collapse">
-        <!-- sidebar menu start-->
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a>
-                        <i class="fa fa-dashboard"></i>
-                        <span>Tổng quan</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/?admin/group-product/index">
-                        <i class="fa fa-book"></i>
-                        <span> nhóm sản phẩm </span>
-                    </a>
-                </li>
-                
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-th"></i>
-                        <span>Sản phẩm</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="/?admin/product/index">Sản phẩm </a></li>
-                        <li><a href="/?admin/product-promotion/index">Sản phẩm khuyến mại </a></li>
-                        <li><a href="/?admin/product-evaluate/index">Sản phẩm được đánh giá </a></li>
+            <div class="top-nav clearfix">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="public/admin/images/3.png">
+                            <span class="username"> {{current_user.name}} </span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <li><a href="/?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <!-- sidebar menu start-->
+                <div class="leftside-navigation">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <li>
+                            <a>
+                                <i class="fa fa-dashboard"></i>
+                                <span>Tổng quan</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/?admin/group-product/index">
+                                <i class="fa fa-book"></i>
+                                <span> nhóm sản phẩm </span>
+                            </a>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-th"></i>
+                                <span>Sản phẩm</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/?admin/product/index">Sản phẩm </a></li>
+                                <li><a href="/?admin/product-promotion/index">Sản phẩm khuyến mại </a></li>
+                                <li><a href="/?admin/product-evaluate/index">Sản phẩm được đánh giá </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="/?admin/trademark/index">
+                                <i class="fa fa-book"></i>
+                                <span> thương hiệu sản phẩm </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/?admin/promotion/index">
+                                <i class="fa fa-money"></i>
+                                <span> Khuyến mãi </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/?admin/type-product/index">
+                                <i class="fa fa-book"></i>
+                                <span> Loại sản phẩm </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/?admin/user/index">
+                                <i class="fa fa-group"></i>
+                                <span> Người dùng </span>
+                            </a>
+                        </li>
+
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-tasks"></i>
+                                <span>Hóa đơn</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/?admin/order/index"> Đơn hàng </a></li>
+                                <li><a href="/?admin/receipt/index">Hóa đơn </a></li>
+                            </ul>
+                        </li>
+
                     </ul>
-                </li>
-
-                <li>
-                  <a href="/?admin/trademark/index">
-                      <i class="fa fa-book"></i>
-                      <span> thương hiệu sản phẩm </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/?admin/promotion/index">
-                      <i class="fa fa-money"></i>
-                      <span> Khuyến mãi </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/?admin/type-product/index">
-                      <i class="fa fa-book"></i>
-                      <span> Loại sản phẩm </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/?admin/user/index">
-                      <i class="fa fa-group"></i>
-                      <span> Người dùng </span>
-                  </a>
-                </li>
-
-
-
-                <li class="sub-menu">
-                    <a class="active" href="javascript:;">
-                        <i class="fa fa-tasks"></i>
-                        <span>Hóa đơn</span>
-                    </a>
-                    <ul class="sub">
-                      <li><a href="http://localhost:9999/admin/donhang"> Đơn hàng </a></li>
-                      <li><a class="active" href="http://localhost:9999/admin/hoadon">Hóa đơn </a></li>
-                    </ul>
-                </li>
-            
-                
-            </ul>            </div>
-        <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--sidebar end-->
-<!--main content start-->
-<section id="main-content">
-	<section class="wrapper">
-		<div class="table-agile-info">
-    <div style="display: flex;">
-        <div style="    display: flex;
+                </div>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <div class="table-agile-info">
+                    <div style="display: flex;">
+                        <div style="    display: flex;
               flex-direction: column;
               margin-right: 20px;">
-            <label> search start date  </label>
-            <input type="date" id="startdate">
-        </div>
-        <div style="    display: flex;
+                            <label> search start date </label>
+                            <input type="date" id="startdate">
+                        </div>
+                        <div style="    display: flex;
               flex-direction: column;
                 margin-right: 20px;">
-            <label> search end date  </label>
-            <input type="date" id="enddate">
-        </div>
-        <div style="    display: flex;
+                            <label> search end date </label>
+                            <input type="date" id="enddate">
+                        </div>
+                        <div style="    display: flex;
             flex-direction: column-reverse;
             margin-right: 20px;">
-            <button id="search" style=" padding: 0 20px;">Search</button>
-        </div>
-        <div style="    display: flex;
+                            <button id="search" style=" padding: 0 20px;">Search</button>
+                        </div>
+                        <div style="    display: flex;
             flex-direction: column-reverse;">
-            <button id="getall" style=" padding: 0 20px;">Get All </button>
-        </div>
+                            <button id="getall" style=" padding: 0 20px;">Get All </button>
+                        </div>
 
-    </div>
- <div class="panel panel-default">
-    <div class="panel-heading">
-     Bảng Hóa Đơn
-    </div>
-    <div>
-      <table class="table" ui-jq="footable" ui-options='{
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Bảng Hóa Đơn
+                        </div>
+                        <div>
+                            <table class="table" ui-jq="footable" ui-options='{
         "paging": {
           "enabled": true
         },
@@ -192,136 +199,113 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         "sorting": {
           "enabled": true
         }}'>
-        <thead>
-          <tr >
-            <th style="text-align:center">Mã Hóa Đơn</th>
-            <th style="text-align:center">Ngày Lập</th>
-            <th style="text-align:center"> Tổng Giá Trị </th>
-            <th style="text-align:center">Tác Vụ </th>
-          </tr>
-        </thead>
-        <tbody id="load_data">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center">Mã Hóa Đơn</th>
+                                        <th style="text-align:center">Ngày Lập</th>
+                                        <th style="text-align:center"> Tổng Giá Trị </th>
+                                        <th style="text-align:center">Tác Vụ </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for receipt in receipts %}
+                                    <tr data-expanded='true' align='center' class='trung'>
+                                        <td> {{ receipt.id }}
+                                        </td>
+                                        <td> {{ receipt.create_date }}
+                                        </td>
+                                        <td> {{ receipt.giatri|number_format(0, '.', ',') }} VND
+                                        </td>
 
-        </tbody>
-      </table>
+                                        <td>
+                                            <a target='_blank' href="/?Admin/receipt/{{ receipt.id }}/receipt-deteil">
+                                                <button title=' xem chi tiết '>
+                                                    <i class='fa fa-folder-open' style='color : black; '>
+                                                    </i>
+                                                </button>
+                                            </a>
 
-    </div>
-  </div>
-</div>
-</section>
- <!-- footer -->
-		  <div class="footer">
-			<div class="wthree-copyright">
-			  <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
-			</div>
-		  </div>
-  <!-- / footer -->
-</section>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
 
-<!--main content end-->
-</section>
-<script src="public/admin/js/bootstrap.js"></script>
-<script src="public/admin/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="public/admin/js/scripts.js"></script>
-<script src="public/admin/js/jquery.slimscroll.js"></script>
-<script src="public/admin/js/jquery.nicescroll.js"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="public/admin/js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="public/admin/js/jquery.scrollTo.js"></script>
-<script>
-            var page = 1;
-            var action = 'inactive';
-            var check = 1;
-            var date = new Date();
-            var startdate = new Date();
-            var enddate = new Date();
+                            <!-- phân trang   -->
 
-        $(document).ready(function(){
-            if(action == 'inactive'){
-                action = 'active';
-                LoadData(page,startdate , enddate);
-            }
 
-            $(window).scroll(function(){
+                            <ul class="pagination" role="menubar" aria-label="Pagination">
+                                {% if ( currentPage > 1 ) %}
+                                <li><a href="?admin/product/index&page=1"><span>First</span></a></li>
+                                <li><a href="?admin/product/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+                                {% else %}
+                                <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+                                <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a>
+                                </li>
+                                {% endif %}
 
-                if($(window).scrollTop() + $(window).height() > $('#load_data').height() && check == 1 && action == 'inactive')
-                {
-                    action = 'active';
-                    page = page + 1;
-                    setTimeout(function(){
-                        LoadData(page,startdate , enddate);
-                    },1000);
-                }
-            });
+                                {% for i in 1..totalPage %}
+                                <li {% if ( currentPage==i ) %} class="current" {% endif %}><a
+                                        href="?admin/product/index&page={{i}}">{{i}}</a>
+                                </li>
+                                {% endfor %}
 
-            $("#search").on('click',function(event){
-                if($('#startdate').val() == false || $('#enddate').val() == false){
+                                {% if ( currentPage < totalPage ) %} <li><a
+                                        href="?admin/product/index&page={{currentPage+1}}"><span>Next</span></a></li>
+                                    <li><a href="?admin/product/index&page={{totalPage}}"><span>Last</span></a></li>
+                                    {% else %}
+                                    <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+                                    <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+                                    {% endif %}
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- footer -->
+            <div class="footer">
+                <div class="wthree-copyright">
+                    <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+                </div>
+            </div>
+            <!-- / footer -->
+        </section>
+
+        <!--main content end-->
+    </section>
+    <script src="public/admin/js/bootstrap.js"></script>
+    <script src="public/admin/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="public/admin/js/scripts.js"></script>
+    <script src="public/admin/js/jquery.slimscroll.js"></script>
+    <script src="public/admin/js/jquery.nicescroll.js"></script>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="public/admin/js/flot-chart/excanvas.min.js"></script><![endif]-->
+    <script src="public/admin/js/jquery.scrollTo.js"></script>
+    <script>
+
+        var startdate = new Date();
+        var enddate = new Date();
+
+        $(document).ready(function () {
+
+            $("#search").on('click', function (event) {
+                if ($('#startdate').val() == false || $('#enddate').val() == false) {
                     alert(" Vui lòng chọn ngày bắt đầu và ngày kết thúc ");
-                }else{
+                } else {
                     var startdate = new Date($('#startdate').val());
                     var enddate = new Date($('#enddate').val());
-                    page = 1;
-                    [...document.getElementsByClassName("trung")].map(n => n && n.remove());
-                    LoadData(page,startdate , enddate);
-                }
-             });
-
-            $("#getall").on('click',function(event){
-                var startdate = new Date();
-                var enddate = new Date();
-                page = 1;
-                [...document.getElementsByClassName("trung")].map(n => n && n.remove());
-                LoadData(page,startdate , enddate);
-             });
-
-        });
-        function LoadData(page,startdate , enddate) {
-            $.ajax({
-                url: 'http://localhost:9999/admin/hoadonall',
-                type: 'GET',
-                data: {
-                    page : page,
-                    startdate : startdate,
-                    enddate : enddate,
-                },
-                success: function (rs) {
-                    if(rs == ""){
-                        check = 2;
-                    }else{
-                        var str = "";
-                        $.each(rs, function (i, item) {
-
-                            var href = '/chitiethoadon/?id=' + item.maHD;
-                            str += "<tr data-expanded='true' align='center' class='trung'> " ;
-                            str += "<td>" + item.maHD;
-                            str += "</td>";
-                            str += "<td >" + item.ngaylap;
-                            str += "</td>";
-                            str += "<td >" + item.giatri;
-                            str += "</td>";
-
-                            str += "<td>";
-                            str += "<a target='_blank' href =" + href + ">";
-                            str += "<button title=' xem chi tiết ' >";
-                            str += "<i class='fa fa-folder-open' style='color : black; '>";
-                            str += "</i>";
-                            str += "</button>";
-                            str += "</a>";
-
-                            str += "</td>";
-                            str += "</tr>";
-
-                        });
-
-                        // id của thẻ tbody để hiển thị tất cả cá tr ra
-                        $('#load_data').append(str);
-                        action = 'inactive';
-                        check = 1;
-
-                    }
                 }
             });
-      };
 
-</script>
+            $("#getall").on('click', function (event) {
+                var startdate = new Date();
+                var enddate = new Date();
+            });
+
+        });
+
+    </script>
 </body>
+
 </html>

@@ -8,7 +8,7 @@ use \App\Models\UserAccountDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class User extends \Core\Controller 
+class User extends Authenticated
 {
 
     protected function before()

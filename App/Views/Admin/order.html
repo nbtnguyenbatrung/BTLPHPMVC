@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="public/admin/css/font.css" type="text/css"/>
 <link href="public/admin/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="public/admin/css/admin.css">
 <!-- //font-awesome icons -->
 <script src="public/admin/js/jquery2.0.3.min.js"></script>
 </head>
@@ -57,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="/?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="/?logoutUser"><i class="fa fa-key"></i> Log Out</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -74,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a >
+                    <a>
                         <i class="fa fa-dashboard"></i>
                         <span>Tổng quan</span>
                     </a>
@@ -95,9 +96,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
                         <li><a href="/?admin/product/index">Sản phẩm </a></li>
                         <li><a href="/?admin/product-promotion/index">Sản phẩm khuyến mại </a></li>
-                        <li><a href="/?admin/product-evaluate/index">Sản phẩm được đánh giá </a></li>
+                        <li><a href="/?admin/product-evaluate/index">Sản phẩm được đánh giá </a>
+                        </li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="/?admin/trademark/index">
                         <i class="fa fa-book"></i>
@@ -126,18 +129,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                 </li>
 
+
                 <li class="sub-menu">
-                    <a class="active" href="javascript:;">
+                    <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
                         <span>Hóa đơn</span>
                     </a>
                     <ul class="sub">
-                        <li><a class="active" href="http://localhost:9999/admin/donhang"> Đơn hàng </a></li>
-                        <li><a href="http://localhost:9999/admin/hoadon">Hóa đơn </a></li>
+                        <li><a href="/?admin/receipt/index"> Đơn hàng </a></li>
+                        <li><a href="/?admin/receipt/index">Hóa đơn </a></li>
                     </ul>
                 </li>
-                
-            </ul>            </div>
+
+            </ul>
+        </div>
         <!-- sidebar menu end-->
     </div>
 </aside>
@@ -175,102 +180,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <th style="text-align:center">Tên Sản Phẩm</th>
             <th style="text-align:center">Size</th>
             <th style="text-align:center">Số Lượng</th>
-            <th style="text-align:center">Ngày Lập </th>
             <th style="text-align:center">Giá Trị</th>
             <th style="text-align:center"></th>
           </tr>
         </thead>
-        <tbody th:each="donhang:${donhang}">
+        <tbody >
+            {% for order in orders %}
           <tr align="center">
-            <td ><label class="i-checks m-b-none "><input class="checkone" type="checkbox" id="checkone" name="post[]" th:value="${donhang.maHD}+${donhang.maSP}+${donhang.maSize}" ><i></i></label></td>
-            <td th:text="${donhang.maHD}"></td>
-            <td th:text="${donhang.tenSP}"></td>
-            <td th:text="${donhang.tenSize}"></td>
-            <td th:text="${donhang.soluong}"></td>
-            <td th:text="${donhang.ngaylap}"></td>
-            <td th:text="${#numbers.formatDecimal(donhang.giatri, 0, 'COMMA', 0, 'POINT')}+' VND'"></td>
+            <td ><label class="i-checks m-b-none ">
+                <input class="checkone" type="checkbox" id="checkone" name="post[]" value="{{ order.id  }}-{{ order.pro_idDetail }}" ><i>
+                </i></label></td>
+            <td > {{ order.id }} </td>
+            <td style="width: 50%;"> {{ order.name }}</td>
+            <td > {{ order.quantityDetail }} </td>
+            <td > {{ order.priceDetail * order.quantityDetail }}</td>
             <td>
-              <a th:href="@{/findOnect/(mahd=${donhang.maHD},masp=${donhang.maSP},masize=${donhang.maSize}) } " class="editcthoadon"><button title=" xem chi tiết " data-toggle="modal" data-target=".bs-example-modal-lg1"> <i class="fa fa-folder-open" style="color : black; "></i> </button> </a>
               <button title=" Duyệt " id="duyet"> <i class="fa fa-check text-success text-active"></i> </button>
               <button title=" Không Duyệt " id="notduyet"> <i class="fa fa-times text-danger text"></i> </button>
             </td>
           </tr>
-
+          {% endfor %}
         </tbody>
       </table>
+
+       <!-- phân trang   -->
+
+       {% if ( totalPage > 0 ) %}
+
+    <ul class="pagination" role="menubar" aria-label="Pagination">
+        {% if ( currentPage > 1 ) %}
+        <li><a href="?admin/product/index&page=1"><span>First</span></a></li>
+        <li><a href="?admin/product/index&page={{currentPage-1}}"><span>Previous</span></a></li>
+        {% else %}
+        <li style="visibility: hidden; "><a href=""><span>First</span></a></li>
+        <li style="visibility: hidden; " class="current"><a href=""><span>Previous</span></a></li>
+        {% endif %}
+  
+        {% for i in 1..totalPage %}
+        <li {% if ( currentPage==i ) %} class="current" {% endif %}><a href="?admin/product/index&page={{i}}">{{i}}</a>
+        </li>
+        {% endfor %}
+  
+        {% if ( currentPage < totalPage ) %} <li><a
+            href="?admin/product/index&page={{currentPage+1}}"><span>Next</span></a></li>
+          <li><a href="?admin/product/index&page={{totalPage}}"><span>Last</span></a></li>
+          {% else %}
+          <li style="visibility: hidden; "><a href=""><span>Next</span></a></li>
+          <li style="visibility: hidden; "><a href=""><span>Last</span></a></li>
+          {% endif %}
+  
+      </ul>
+      {% endif %}
+
     </div>
-
-      <!-- phần modol của edit  -->
-
-      <div class="modal fade bs-example-modal-lg1 myform" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" align = center>
-          <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                  <div class="modal-body">
-                      <div class="row" align = center >
-                          <h3> chi tiết hóa đơn  </h3>
-                          <table  cellspacing=20 width="400" class="table" ui-jq="footable" ui-options='{
-                                  "paging": {
-                                    "enabled": true
-                                  },
-                                  "filtering": {
-                                    "enabled": true
-                                  },
-                                  "sorting": {
-                                    "enabled": true
-                                  }}'>
-
-                              <tr>
-                                  <td>Tên sản phẩm  </td>
-                                  <td><input type="text" readonly id ="tensp"></td>
-                              </tr>
-                              <tr>
-                                  <td> Tên size </td>
-                                  <td><input type="text" readonly id ="tensize"></td>
-                              </tr>
-                              <tr>
-                                  <td>Số lượng </td>
-                                  <td><input type="text" id="soluong" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Đơn Giá </td>
-                                  <td><input type="text" id="dongia" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Giá Trị </td>
-                                  <td><input type="text" id="giatri" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Trạng Thái </td>
-                                  <td><input type="text" id="type" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Mô Tả </td>
-                                  <td><textarea type="text" id="mota" readonly cols="30" rows="5"></textarea></td>
-                              </tr>
-                              <tr>
-                                  <td> Ngày Lập </td>
-                                  <td><input type="text" id="ngaylap" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Địa Chỉ Người Nhận  </td>
-                                  <td><textarea type="text" id="diachi" readonly cols="30" rows="5"></textarea></td>
-                              </tr>
-                              <tr>
-                                  <td> Người Nhận </td>
-                                  <td><input type="text" id="nguoinhan" readonly></td>
-                              </tr>
-                              <tr>
-                                  <td> Số Điện Thoại Người Nhận </td>
-                                  <td><input type="text" id="sdt" readonly></td>
-                              </tr>
-                          </table>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-
-      </div>
 
   </div>
 </div>
@@ -295,5 +257,81 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="public/admin/js/jquery.scrollTo.js"></script>
 <script src="public/admin/js/admin.js"></script>
 
+<script>
+    $(document).ready(function() {
+
+        $("#apply").click(function(event) {
+        var cboxes = document.getElementsByName('post[]');
+        var inputElements = document.getElementsByClassName('checkone');
+        var arr = [];
+        for (var i = 0; i < cboxes.length; i++) {
+            if (cboxes[i].checked == true) {
+                var val = inputElements[i].value;
+                arr.push(val);
+            }
+        }
+        if ($('input[name="post[]"]:checked').length > 0) {
+            $.ajax({
+                url: "/?admin/order/duyet-all",
+                type: "POST",
+                data: {
+                    key: $("#trangthai").val(),
+                    list: arr,
+                },
+                success: function(value) {
+                    window.location = "/?admin/order/index";
+                },
+                error: function(e) {
+                    alert(" ERROR! ");
+                }
+            });
+        } else {
+            alert("Chưa chọn đơn hàng nào !");
+        }
+    });
+
+        $("#duyet").click(function(event) {
+        var a = $("#checkone").val();
+         var id = a.substring(0,a.indexOf("-"))
+         var pro_id = a.substring(a.indexOf("-") + 1)
+
+        $.ajax({
+            url: "/?admin/order/duyet",
+            type: "POST",
+            data: {
+                id: id,
+                pro_id: pro_id,
+            },
+            success: function() {
+                
+                window.location = "/?admin/order/index";
+            },
+            error: function(e) {
+                alert(" ERROR! ");
+            }
+        });
+    });
+
+    $("#notduyet").click(function(event) {
+        var a = $("#checkone").val();
+         var id = a.substring(0,a.indexOf("-"))
+         var pro_id = a.substring(a.indexOf("-") + 1)
+        $.ajax({
+            url: "/?admin/order/no-duyet",
+            type: "POST",
+            data: {
+                id: id,
+                pro_id: pro_id,
+            },
+            success: function(value) {
+                window.location = "/?admin/order/index";
+            },
+            error: function(e) {
+                alert("ERROR !");
+            }
+        });
+    });
+    })
+</script>
 </body>
 </html>

@@ -10,7 +10,7 @@ use \Config\Config;
 use \App\Models\ProductDTO;
 use \App\Models\PromotionDTO;
 
-class ProductPromotion extends \Core\Controller 
+class ProductPromotion extends Authenticated
 {
 
     protected function before()

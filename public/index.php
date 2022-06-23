@@ -24,6 +24,13 @@ require '../vendor/autoload.php';
     $router->add('login', ['controller' => 'Login', 'action' => 'login' , 'namespace'=>'Admin' ]);
     $router->add('logout', ['controller' => 'Logout', 'action' => 'logout']);
 
+    $router->add('loginUser', ['controller' => 'Login', 'action' => 'new' , 'namespace'=>'Home' ]);
+    $router->add('logoutUser', ['controller' => 'Logout', 'action' => 'logoutUser']);
+    $router->add('register', ['controller' => 'Login', 'action' => 'register' , 'namespace'=>'Home' ]);
+    $router->add("user/{controller}/{action}",['namespace'=>'Home']);
+    $router->add("user/{controller}/{id:\d+}/{action}",['namespace'=>'Home']);
+    $router->add('contact', ['controller' => 'Contact', 'action' => 'index' , 'namespace'=>'Home' ]);
+
     $router->dispatch($_SERVER["QUERY_STRING"]);
     
 ?>

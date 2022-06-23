@@ -7,7 +7,7 @@ use \App\Models\TrademarkDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class Trademark extends \Core\Controller 
+class Trademark extends Authenticated
 {
     
     protected function before()

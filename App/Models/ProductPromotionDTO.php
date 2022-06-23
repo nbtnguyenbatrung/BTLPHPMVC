@@ -26,13 +26,13 @@ class ProductPromotionDTO extends \Core\Model
             promotion.percent , promotion.from_date , promotion.to_date ,DATEDIFF(promotion.to_date,promotion.from_date) as diffdate
             from product INNER JOIN promotion
             ON product.prom_id = promotion.prom_id
-            ORDER BY product.pro_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+            ORDER BY product.pro_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
         }else{
             $sql = 'SELECT product.name , product.price , product.pro_id , promotion.prom_id,
             promotion.percent , promotion.from_date , promotion.to_date , DATEDIFF(promotion.to_date,promotion.from_date) as diffdate
             from product INNER JOIN promotion
             ON product.prom_id = promotion.prom_id
-            ORDER BY product.pro_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllProductPromotionPage()) / 5)) . ' , 5 ' ;
+            ORDER BY product.pro_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllProductPromotionPage()) / 5) , 5) . ' , 5 ' ;
         }
         
         $db = static::getDB();

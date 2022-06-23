@@ -7,7 +7,7 @@ use \App\Models\ImageDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class Image extends \Core\Controller 
+class Image extends Authenticated
 {
     protected function before()
     {

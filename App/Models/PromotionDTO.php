@@ -20,9 +20,9 @@ class PromotionDTO extends \Core\Model
     public function getAllPromotion($currentPage){
 
             if ($currentPage <= Config::getCeil(count($this->getAllPromotionPage()) / 5) ){
-                $sql = 'SELECT * , DATEDIFF(promotion.to_date,promotion.from_date) as diffdate from promotion WHERE status = 1 ORDER BY prom_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+                $sql = 'SELECT * , DATEDIFF(promotion.to_date,promotion.from_date) as diffdate from promotion WHERE status = 1 ORDER BY prom_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
             }else{
-                $sql = 'SELECT * , DATEDIFF(promotion.to_date,promotion.from_date) as diffdate from promotion WHERE status = 1 ORDER BY prom_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllPromotionPage()) / 5)) . ' , 5 ' ;
+                $sql = 'SELECT * , DATEDIFF(promotion.to_date,promotion.from_date) as diffdate from promotion WHERE status = 1 ORDER BY prom_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllPromotionPage()) / 5) , 5) . ' , 5 ' ;
             }
 
         $db = static::getDB();
@@ -90,4 +90,14 @@ class PromotionDTO extends \Core\Model
 
         return $stmt->execute();
     }
+
+    public function getAllPromotionView(){
+        $sql = 'SELECT * from promotion WHERE status = 1 AND to_date >=  CURDATE() ';
+
+        $db = static::getDB();
+        $data = $db->query($sql);
+        $promotion = $data->fetchAll();
+        return $promotion;
+    }
+
 }

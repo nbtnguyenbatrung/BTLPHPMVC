@@ -3,6 +3,7 @@
 namespace Core;
 
 use \Config\Admin\Auth;
+use \Config\User\AuthHomePage;
 use \Config\Flash;
 
 abstract class Controller 
@@ -56,13 +57,15 @@ abstract class Controller
     {
 
         if (!Auth::getUser()) {
-
-            
-            // Flash::addMessage('Please login to access that page', Flash::INFO);
-
-            // Auth::rememberRequestedPage();
-
             $this->redirect('/?login');
+        }
+    }
+
+    public function requireLoginUser()
+    {
+
+        if (!AuthHomePage::getUser()) {
+            $this->redirect('/?loginUser');
         }
     }
 }

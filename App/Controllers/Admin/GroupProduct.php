@@ -8,7 +8,7 @@ use \App\Models\GroupProductDTO;
 use \Config\Admin\Auth;
 use \Config\Config;
 
-class GroupProduct extends \Core\Controller 
+class GroupProduct extends Authenticated 
 {
 
     protected function before()

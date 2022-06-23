@@ -20,9 +20,9 @@ class UserAccountDTO extends \Core\Model
     public function getAllUser($currentPage){
 
         if ($currentPage <= Config::getCeil(count($this->getAllUserPage()) / 5) ){
-            $sql = 'SELECT * from user_account  ORDER BY user_id DESC LIMIT ' . Config::getPage($currentPage) . ' , 5 ' ;
+            $sql = 'SELECT * from user_account  ORDER BY user_id DESC LIMIT ' . Config::getPage($currentPage , 5) . ' , 5 ' ;
         }else{
-            $sql = 'SELECT * from user_account ORDER BY user_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllUserPage()) / 5)) . ' , 5 ' ;
+            $sql = 'SELECT * from user_account ORDER BY user_id DESC LIMIT ' . Config::getPage(Config::getCeil(count($this->getAllUserPage()) / 5) , 5) . ' , 5 ' ;
         }
         
         $db = static::getDB();
@@ -152,4 +152,22 @@ class UserAccountDTO extends \Core\Model
 
         return $stmt->execute();
     }
+
+    public function addUser(){
+
+        $sql = 'INSERT INTO user_account (name ,phone_number , email , password , role ,status)
+                VALUES (:name , :phone_number , :email , :password , :role , 1)';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':name', $_POST["name"], PDO::PARAM_STR);
+        $stmt->bindValue(':phone_number', $_POST["phone_number"], PDO::PARAM_STR);
+        $stmt->bindValue(':email', $_POST["email"], PDO::PARAM_STR);
+        $stmt->bindValue(':password', password_hash($_POST["password"], PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $stmt->bindValue(':role', "user", PDO::PARAM_STR);
+        
+        return $stmt->execute();
+    }
+
 }
